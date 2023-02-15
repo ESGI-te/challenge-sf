@@ -22,7 +22,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
+    App\Service\RegisterService:
+        arguments:
+            $imageDirectory: '%kernel.project_dir%/upload/image/user_avatar'
     App\Service\MailService:
         arguments:
             $sendinblueApiKey: '%env(SENDINBLUE_API_KEY)%'

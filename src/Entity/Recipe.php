@@ -22,19 +22,7 @@ class Recipe
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]
-    private ?RecipeMood $mood = null;
-
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    private ?RecipeCourse $meal_course = null;
-
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?RecipeDuration $duration = null;
-
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    private ?RecipeSeason $season = null;
-
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    private ?RecipeMealtime $mealtime = null;
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recipes')]
     private Collection $ingredients;
@@ -43,17 +31,15 @@ class Recipe
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user_id = null;
 
-    #[ORM\ManyToMany(targetEntity: Favorite::class, inversedBy: 'recipes')]
-    private Collection $favorites;
+    #[ORM\Column]
+    private ?int $nb_people = 1;
 
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Like::class, orphanRemoval: true)]
-    private Collection $likes;
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    private ?RecipeDifficulty $difficulty = null;
 
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
-        $this->favorites = new ArrayCollection();
-        $this->likes = new ArrayCollection();
     }
 
     public function getId(): string
@@ -73,30 +59,6 @@ class Recipe
         return $this;
     }
 
-    public function getMood(): ?RecipeMood
-    {
-        return $this->mood;
-    }
-
-    public function setMood(?RecipeMood $mood): self
-    {
-        $this->mood = $mood;
-
-        return $this;
-    }
-
-    public function getMealCourse(): ?RecipeCourse
-    {
-        return $this->meal_course;
-    }
-
-    public function setMealCourse(?RecipeCourse $meal_course): self
-    {
-        $this->meal_course = $meal_course;
-
-        return $this;
-    }
-
     public function getDuration(): ?RecipeDuration
     {
         return $this->duration;
@@ -105,30 +67,6 @@ class Recipe
     public function setDuration(?RecipeDuration $duration): self
     {
         $this->duration = $duration;
-
-        return $this;
-    }
-
-    public function getSeason(): ?RecipeSeason
-    {
-        return $this->season;
-    }
-
-    public function setSeason(?RecipeSeason $season): self
-    {
-        $this->season = $season;
-
-        return $this;
-    }
-
-    public function getMealtime(): ?RecipeMealtime
-    {
-        return $this->mealtime;
-    }
-
-    public function setMealtime(?RecipeMealtime $mealtime): self
-    {
-        $this->mealtime = $mealtime;
 
         return $this;
     }
@@ -169,56 +107,26 @@ class Recipe
         return $this;
     }
 
-    /**
-     * @return Collection<int, Favorite>
-     */
-    public function getFavorites(): Collection
+    public function getNbPeople(): ?int
     {
-        return $this->favorites;
+        return $this->nb_people;
     }
 
-    public function addFavorite(Favorite $favorite): self
+    public function setNbPeople(int $nb_people): self
     {
-        if (!$this->favorites->contains($favorite)) {
-            $this->favorites->add($favorite);
-        }
+        $this->nb_people = $nb_people;
 
         return $this;
     }
 
-    public function removeFavorite(Favorite $favorite): self
+    public function getDifficulty(): ?RecipeDifficulty
     {
-        $this->favorites->removeElement($favorite);
-
-        return $this;
+        return $this->difficulty;
     }
 
-    /**
-     * @return Collection<int, Like>
-     */
-    public function getLikes(): Collection
+    public function setDifficulty(?RecipeDifficulty $difficulty): self
     {
-        return $this->likes;
-    }
-
-    public function addLike(Like $like): self
-    {
-        if (!$this->likes->contains($like)) {
-            $this->likes->add($like);
-            $like->setRecipe($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLike(Like $like): self
-    {
-        if ($this->likes->removeElement($like)) {
-            // set the owning side to null (unless already changed)
-            if ($like->getRecipe() === $this) {
-                $like->setRecipe(null);
-            }
-        }
+        $this->difficulty = $difficulty;
 
         return $this;
     }

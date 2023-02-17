@@ -6,9 +6,6 @@
 /public/bundles/
 /var/
 /vendor/
-/migrations
 .idea/
-/upload/image/*/**
-/upload/music/*
 upload/.DS_Store
 .DS_Store

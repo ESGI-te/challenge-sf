@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit RecipeMood{% endblock %}
+
+{% block body %}
+    <h1>Edit RecipeMood</h1>
+
+    {{ include('recipe_mood/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_recipe_mood_index') }}">back to list</a>
+
+    {{ include('recipe_mood/_delete_form.html.twig') }}
+{% endblock %}

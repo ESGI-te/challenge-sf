@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New RecipeMealtime{% endblock %}
+
+{% block body %}
+    <h1>Create new RecipeMealtime</h1>
+
+    {{ include('recipe_mealtime/_form.html.twig') }}
+
+    <a href="{{ path('app_recipe_mealtime_index') }}">back to list</a>
+{% endblock %}

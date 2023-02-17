@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RecipeSeason{% endblock %}
+
+{% block body %}
+    <h1>RecipeSeason</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ recipe_season.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ recipe_season.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_recipe_season_index') }}">back to list</a>
+
+    <a href="{{ path('app_recipe_season_edit', {'id': recipe_season.id}) }}">edit</a>
+
+    {{ include('recipe_season/_delete_form.html.twig') }}
+{% endblock %}

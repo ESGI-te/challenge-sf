@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New RecipeMood{% endblock %}
+
+{% block body %}
+    <h1>Create new RecipeMood</h1>
+
+    {{ include('recipe_mood/_form.html.twig') }}
+
+    <a href="{{ path('app_recipe_mood_index') }}">back to list</a>
+{% endblock %}

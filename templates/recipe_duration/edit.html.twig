@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit RecipeDuration{% endblock %}
+
+{% block body %}
+    <h1>Edit RecipeDuration</h1>
+
+    {{ include('recipe_duration/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_recipe_duration_index') }}">back to list</a>
+
+    {{ include('recipe_duration/_delete_form.html.twig') }}
+{% endblock %}

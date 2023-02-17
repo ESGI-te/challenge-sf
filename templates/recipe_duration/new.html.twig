@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New RecipeDuration{% endblock %}
+
+{% block body %}
+    <h1>Create new RecipeDuration</h1>
+
+    {{ include('recipe_duration/_form.html.twig') }}
+
+    <a href="{{ path('app_recipe_duration_index') }}">back to list</a>
+{% endblock %}

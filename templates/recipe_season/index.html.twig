@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RecipeSeason index{% endblock %}
+
+{% block body %}
+    <h1>RecipeSeason index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for recipe_season in recipe_seasons %}
+            <tr>
+                <td>{{ recipe_season.id }}</td>
+                <td>{{ recipe_season.name }}</td>
+                <td>
+                    <a href="{{ path('app_recipe_season_show', {'id': recipe_season.id}) }}">show</a>
+                    <a href="{{ path('app_recipe_season_edit', {'id': recipe_season.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_recipe_season_new') }}">Create new</a>
+{% endblock %}

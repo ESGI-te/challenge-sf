@@ -28,3 +28,6 @@ services:
     App\Service\MailService:
         arguments:
             $sendinblueApiKey: '%env(SENDINBLUE_API_KEY)%'
+    App\Service\OpenAIService:
+        arguments:
+            $openAiKey: '%env(OPEN_AI_API_KEY)_API_KEY)%'

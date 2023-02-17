@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\LikeRepository;
+use App\Repository\FavoriteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
 
-#[ORM\Entity(repositoryClass: LikeRepository::class)]
-#[ORM\Table(name: '`like`')]
-class Like
+#[ORM\Entity(repositoryClass: FavoriteRepository::class)]
+class Favorite
 {
     #[ORM\Id]
     #[ORM\Column(type: "uuid", unique: true)]
@@ -20,13 +21,17 @@ class Like
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'likes')]
+    #[ORM\ManyToOne(inversedBy: 'favorites')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user_id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'likes')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Recipe $recipe = null;
+    #[ORM\ManyToMany(targetEntity: Recipe::class, mappedBy: 'favorites')]
+    private Collection $recipes;
+
+    public function __construct()
+    {
+        $this->recipes = new ArrayCollection();
+    }
 
     public function getId(): string
     {
@@ -57,14 +62,29 @@ class Like
         return $this;
     }
 
-    public function getRecipe(): ?Recipe
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getRecipes(): Collection
     {
-        return $this->recipe;
+        return $this->recipes;
     }
 
-    public function setRecipe(?Recipe $recipe): self
+    public function addRecipe(Recipe $recipe): self
     {
-        $this->recipe = $recipe;
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes->add($recipe);
+            $recipe->addFavorite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): self
+    {
+        if ($this->recipes->removeElement($recipe)) {
+            $recipe->removeFavorite($this);
+        }
 
         return $this;
     }

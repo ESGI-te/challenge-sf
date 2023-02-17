@@ -48,35 +48,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $nb_warnings = 0;
-
     #[ORM\Column(length: 255)]
     private ?string $token = null;
 
-    #[ORM\OneToOne(inversedBy: 'user_id', cascade: ['persist', 'remove'])]
-    private ?ModeratorRequest $moderatorRequest = null;
-
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Music::class, orphanRemoval: true)]
-    private Collection $musics;
-
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Playlist::class, orphanRemoval: true)]
-    private Collection $playlists;
-
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Litigation::class, orphanRemoval: true)]
-    private Collection $litigations;
-
     #[ORM\Column(length: 50)]
     private ?string $username = null;
+
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Recipe::class, orphanRemoval: true)]
+    private Collection $recipes;
+
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Favorite::class, orphanRemoval: true)]
+    private Collection $favorites;
 
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Like::class, orphanRemoval: true)]
     private Collection $likes;
 
     public function __construct()
     {
-        $this->musics = new ArrayCollection();
-        $this->playlists = new ArrayCollection();
-        $this->litigations = new ArrayCollection();
+        $this->recipes = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
         $this->likes = new ArrayCollection();
     }
 
@@ -196,18 +186,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getNbWarnings(): ?int
-    {
-        return $this->nb_warnings;
-    }
-
-    public function setNbWarnings(int $nb_warnings): self
-    {
-        $this->nb_warnings = $nb_warnings;
-
-        return $this;
-    }
-
     public function getToken(): ?string
     {
         return $this->token;
@@ -220,48 +198,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getModeratorRequest(): ?ModeratorRequest
-    {
-        return $this->moderatorRequest;
-    }
-
-    public function setModeratorRequest(?ModeratorRequest $moderatorRequest): self
-    {
-        $this->moderatorRequest = $moderatorRequest;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Litigation>
-     */
-    public function getLitigations(): Collection
-    {
-        return $this->litigations;
-    }
-
-    public function addLitigation(Litigation $litigation): self
-    {
-        if (!$this->litigations->contains($litigation)) {
-            $this->litigations->add($litigation);
-            $litigation->setUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLitigation(Litigation $litigation): self
-    {
-        if ($this->litigations->removeElement($litigation)) {
-            // set the owning side to null (unless already changed)
-            if ($litigation->getUserId() === $this) {
-                $litigation->setUserId(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getUsername(): ?string
     {
         return $this->username;
@@ -270,6 +206,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipe $recipe): self
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes->add($recipe);
+            $recipe->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): self
+    {
+        if ($this->recipes->removeElement($recipe)) {
+            // set the owning side to null (unless already changed)
+            if ($recipe->getUserId() === $this) {
+                $recipe->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favorite>
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Favorite $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites->add($favorite);
+            $favorite->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Favorite $favorite): self
+    {
+        if ($this->favorites->removeElement($favorite)) {
+            // set the owning side to null (unless already changed)
+            if ($favorite->getUserId() === $this) {
+                $favorite->setUserId(null);
+            }
+        }
 
         return $this;
     }
@@ -303,4 +299,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }

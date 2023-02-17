@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\RecipeMood;
+use App\Entity\RecipeDifficulty;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<RecipeMood>
+ * @extends ServiceEntityRepository<RecipeDifficulty>
  *
- * @method RecipeMood|null find($id, $lockMode = null, $lockVersion = null)
- * @method RecipeMood|null findOneBy(array $criteria, array $orderBy = null)
- * @method RecipeMood[]    findAll()
- * @method RecipeMood[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method RecipeDifficulty|null find($id, $lockMode = null, $lockVersion = null)
+ * @method RecipeDifficulty|null findOneBy(array $criteria, array $orderBy = null)
+ * @method RecipeDifficulty[]    findAll()
+ * @method RecipeDifficulty[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RecipeMoodRepository extends ServiceEntityRepository
+class RecipeDifficultyRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, RecipeMood::class);
+        parent::__construct($registry, RecipeDifficulty::class);
     }
 
-    public function save(RecipeMood $entity, bool $flush = false): void
+    public function save(RecipeDifficulty $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class RecipeMoodRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(RecipeMood $entity, bool $flush = false): void
+    public function remove(RecipeDifficulty $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class RecipeMoodRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return RecipeMood[] Returns an array of RecipeMood objects
+//     * @return RecipeDifficulty[] Returns an array of RecipeDifficulty objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class RecipeMoodRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?RecipeMood
+//    public function findOneBySomeField($value): ?RecipeDifficulty
 //    {
 //        return $this->createQueryBuilder('r')
 //            ->andWhere('r.exampleField = :val')

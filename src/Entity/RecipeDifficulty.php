@@ -2,26 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\RecipeMealtimeRepository;
+use App\Repository\RecipeDifficultyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Uuid\Doctrine\UuidGenerator;
-use Ramsey\Uuid\UuidInterface;
 
-#[ORM\Entity(repositoryClass: RecipeMealtimeRepository::class)]
-class RecipeMealtime
+#[ORM\Entity(repositoryClass: RecipeDifficultyRepository::class)]
+class RecipeDifficulty
 {
     #[ORM\Id]
-    #[ORM\Column(type: "uuid", unique: true)]
-    #[ORM\GeneratedValue(strategy: "CUSTOM")]
-    #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
-    protected UuidInterface|string $id;
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'mealtime', targetEntity: Recipe::class)]
+    #[ORM\OneToMany(mappedBy: 'difficulty', targetEntity: Recipe::class)]
     private Collection $recipes;
 
     public function __construct()
@@ -29,7 +26,7 @@ class RecipeMealtime
         $this->recipes = new ArrayCollection();
     }
 
-    public function getId(): string
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -58,7 +55,7 @@ class RecipeMealtime
     {
         if (!$this->recipes->contains($recipe)) {
             $this->recipes->add($recipe);
-            $recipe->setMealtime($this);
+            $recipe->setDifficulty($this);
         }
 
         return $this;
@@ -68,8 +65,8 @@ class RecipeMealtime
     {
         if ($this->recipes->removeElement($recipe)) {
             // set the owning side to null (unless already changed)
-            if ($recipe->getMealtime() === $this) {
-                $recipe->setMealtime(null);
+            if ($recipe->getDifficulty() === $this) {
+                $recipe->setDifficulty(null);
             }
         }
 

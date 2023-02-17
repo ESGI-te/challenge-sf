@@ -57,12 +57,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Recipe::class, orphanRemoval: true)]
     private Collection $recipes;
 
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Favorite::class, orphanRemoval: true)]
-    private Collection $favorites;
-
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Like::class, orphanRemoval: true)]
-    private Collection $likes;
-
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
@@ -234,66 +228,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($recipe->getUserId() === $this) {
                 $recipe->setUserId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Favorite>
-     */
-    public function getFavorites(): Collection
-    {
-        return $this->favorites;
-    }
-
-    public function addFavorite(Favorite $favorite): self
-    {
-        if (!$this->favorites->contains($favorite)) {
-            $this->favorites->add($favorite);
-            $favorite->setUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFavorite(Favorite $favorite): self
-    {
-        if ($this->favorites->removeElement($favorite)) {
-            // set the owning side to null (unless already changed)
-            if ($favorite->getUserId() === $this) {
-                $favorite->setUserId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Like>
-     */
-    public function getLikes(): Collection
-    {
-        return $this->likes;
-    }
-
-    public function addLike(Like $like): self
-    {
-        if (!$this->likes->contains($like)) {
-            $this->likes->add($like);
-            $like->setUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLike(Like $like): self
-    {
-        if ($this->likes->removeElement($like)) {
-            // set the owning side to null (unless already changed)
-            if ($like->getUserId() === $this) {
-                $like->setUserId(null);
             }
         }
 

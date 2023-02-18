@@ -30,4 +30,4 @@ services:
             $sendinblueApiKey: '%env(SENDINBLUE_API_KEY)%'
     App\Service\OpenAIService:
         arguments:
-            $openAiKey: '%env(OPEN_AI_API_KEY)_API_KEY)%'
+            $openAiKey: '%env(OPEN_AI_API_KEY)%'

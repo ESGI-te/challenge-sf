@@ -37,6 +37,9 @@ class Recipe
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?RecipeDifficulty $difficulty = null;
 
+    #[ORM\Column(length: 1500)]
+    private ?string $content = null;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
@@ -127,6 +130,18 @@ class Recipe
     public function setDifficulty(?RecipeDifficulty $difficulty): self
     {
         $this->difficulty = $difficulty;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
 
         return $this;
     }

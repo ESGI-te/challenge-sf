@@ -60,8 +60,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
-        $this->favorites = new ArrayCollection();
-        $this->likes = new ArrayCollection();
     }
 
     public function getId(): string

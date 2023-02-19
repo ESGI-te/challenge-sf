@@ -1,7 +1,6 @@
 recipe_1:
-  content: "Pommes de Terre Saucisse et Aubergines
-  
-            Ingrédients :
+  title: Pommes de Terre Saucisse et Aubergines
+  content: "Ingrédients :
             - 2 pommes de terre moyennes
             - 2 saucisses
             - 2 aubergines moyennes
@@ -25,6 +24,7 @@ recipe_1:
               
               7. Servir chaud."
 
+  image: https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272
   created_at: '2023-02-18 12:00:00'
   ingredients:
     - name: Pommes de terre
@@ -37,9 +37,8 @@ recipe_1:
   nb_people: 2
 
 recipe_2:
-  content: "Pommes de Terre Saucisse et Aubergines
-  
-            Ingrédients :
+  title: Pommes de Terre Saucisse et Aubergines
+  content: "Ingrédients :
             - 2 pommes de terre moyennes
             - 2 saucisses
             - 2 aubergines moyennes
@@ -63,6 +62,7 @@ recipe_2:
               
               7. Servir chaud."
 
+  image: https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272
   created_at: '2023-02-18 12:00:00'
   ingredients:
     - name: Pommes de terre
@@ -75,9 +75,8 @@ recipe_2:
   nb_people: 2
 
 recipe_3:
-  content: "Pommes de Terre Saucisse et Aubergines
-  
-            Ingrédients :
+  title: Pommes de Terre Saucisse et Aubergines
+  content: "Ingrédients :
             - 2 pommes de terre moyennes
             - 2 saucisses
             - 2 aubergines moyennes
@@ -101,6 +100,7 @@ recipe_3:
               
               7. Servir chaud."
 
+  image: https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272
   created_at: '2023-02-18 12:00:00'
   ingredients:
     - name: Pommes de terre
@@ -113,9 +113,8 @@ recipe_3:
   nb_people: 2
 
 recipe_4:
-  content: "Pommes de Terre Saucisse et Aubergines
-  
-            Ingrédients :
+  title: Pommes de Terre Saucisse et Aubergines
+  content: "Ingrédients :
             - 2 pommes de terre moyennes
             - 2 saucisses
             - 2 aubergines moyennes
@@ -139,6 +138,7 @@ recipe_4:
               
               7. Servir chaud."
 
+  image: https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272
   created_at: '2023-02-18 12:00:00'
   ingredients:
     - name: Pommes de terre
@@ -151,9 +151,8 @@ recipe_4:
   nb_people: 2
 
 recipe_5:
-  content: "Pommes de Terre Saucisse et Aubergines
-  
-            Ingrédients :
+  title: Pommes de Terre Saucisse et Aubergines
+  content: "Ingrédients :
             - 2 pommes de terre moyennes
             - 2 saucisses
             - 2 aubergines moyennes
@@ -177,6 +176,7 @@ recipe_5:
               
               7. Servir chaud."
 
+  image: https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272
   created_at: '2023-02-18 12:00:00'
   ingredients:
     - name: Pommes de terre
@@ -189,9 +189,8 @@ recipe_5:
   nb_people: 2
 
 recipe_6:
-  content: "Pommes de Terre Saucisse et Aubergines
-  
-            Ingrédients :
+  title: Pommes de Terre Saucisse et Aubergines
+  content: "Ingrédients :
             - 2 pommes de terre moyennes
             - 2 saucisses
             - 2 aubergines moyennes
@@ -215,6 +214,7 @@ recipe_6:
               
               7. Servir chaud."
 
+  image: https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272
   created_at: '2023-02-18 12:00:00'
   ingredients:
     - name: Pommes de terre
@@ -227,9 +227,8 @@ recipe_6:
   nb_people: 2
 
 recipe_7:
-  content: "Pommes de Terre Saucisse et Aubergines
-  
-            Ingrédients :
+  title: Pommes de Terre Saucisse et Aubergines
+  content: "Ingrédients :
             - 2 pommes de terre moyennes
             - 2 saucisses
             - 2 aubergines moyennes
@@ -253,6 +252,7 @@ recipe_7:
               
               7. Servir chaud."
 
+  image: https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272
   created_at: '2023-02-18 12:00:00'
   ingredients:
     - name: Pommes de terre
@@ -265,9 +265,8 @@ recipe_7:
   nb_people: 2
 
 recipe_8:
-  content: "Pommes de Terre Saucisse et Aubergines
-  
-            Ingrédients :
+  title: Pommes de Terre Saucisse et Aubergines
+  content: "Ingrédients :
             - 2 pommes de terre moyennes
             - 2 saucisses
             - 2 aubergines moyennes
@@ -291,6 +290,7 @@ recipe_8:
               
               7. Servir chaud."
 
+  image: https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272
   created_at: '2023-02-18 12:00:00'
   ingredients:
     - name: Pommes de terre
@@ -303,9 +303,8 @@ recipe_8:
   nb_people: 2
 
 recipe_9:
-  content: "Pommes de Terre Saucisse et Aubergines
-  
-            Ingrédients :
+  title: Pommes de Terre Saucisse et Aubergines
+  content: "Ingrédients :
             - 2 pommes de terre moyennes
             - 2 saucisses
             - 2 aubergines moyennes
@@ -329,6 +328,7 @@ recipe_9:
               
               7. Servir chaud."
 
+  image: https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272
   created_at: '2023-02-18 12:00:00'
   ingredients:
     - name: Pommes de terre
@@ -341,9 +341,8 @@ recipe_9:
   nb_people: 2
 
 recipe_10:
-  content: "Pommes de Terre Saucisse et Aubergines
-  
-            Ingrédients :
+  title: Pommes de Terre Saucisse et Aubergines
+  content: "Ingrédients :
             - 2 pommes de terre moyennes
             - 2 saucisses
             - 2 aubergines moyennes
@@ -367,6 +366,7 @@ recipe_10:
               
               7. Servir chaud."
 
+  image: https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272
   created_at: '2023-02-18 12:00:00'
   ingredients:
     - name: Pommes de terre
@@ -379,9 +379,8 @@ recipe_10:
   nb_people: 2
 
 recipe_11:
-  content: "Pommes de Terre Saucisse et Aubergines
-  
-            Ingrédients :
+  title: Pommes de Terre Saucisse et Aubergines
+  content: "Ingrédients :
             - 2 pommes de terre moyennes
             - 2 saucisses
             - 2 aubergines moyennes
@@ -405,6 +404,7 @@ recipe_11:
               
               7. Servir chaud."
 
+  image: https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272
   created_at: '2023-02-18 12:00:00'
   ingredients:
     - name: Pommes de terre
@@ -417,9 +417,8 @@ recipe_11:
   nb_people: 2
 
 recipe_12:
-  content: "Pommes de Terre Saucisse et Aubergines
-  
-            Ingrédients :
+  title: Pommes de Terre Saucisse et Aubergines
+  content: "Ingrédients :
             - 2 pommes de terre moyennes
             - 2 saucisses
             - 2 aubergines moyennes
@@ -443,6 +442,7 @@ recipe_12:
               
               7. Servir chaud."
 
+  image: https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272
   created_at: '2023-02-18 12:00:00'
   ingredients:
     - name: Pommes de terre

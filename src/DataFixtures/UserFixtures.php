@@ -28,6 +28,7 @@ class UserFixtures extends Fixture
             $user->setEmail($userData['email']);
             $user->setPassword($hashedPassword);
             $user->setToken(Uuid::uuid4());
+            $user->setRoles([...$user->getRoles(), 'IS_FULLY_AUTHENTICATED']);
             $user->setCreatedAt($createdAt);
             $manager->persist($user);
             $userIndex++;

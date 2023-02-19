@@ -40,6 +40,12 @@ class Recipe
     #[ORM\Column(length: 1500)]
     private ?string $content = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $title = null;
+
+    #[ORM\Column(length: 500)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
@@ -142,6 +148,30 @@ class Recipe
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

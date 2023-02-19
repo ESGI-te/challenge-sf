@@ -11,7 +11,7 @@ class RecipeGenerationService
         if (!isset($params['ingredients']) || !is_array($params['ingredients'])) {
             throw new \InvalidArgumentException("Le paramètre 'ingredients' est manquant ou n'est pas un tableau.");
         }
-        if (!isset($params['duration']) || !is_numeric($params['duration'])) {
+        if (!isset($params['duration']) || !is_string($params['duration'])) {
             throw new \InvalidArgumentException("Le paramètre 'duration' est manquant ou n'est pas un nombre.");
         }
         if (!isset($params['difficulty']) || !is_string($params['difficulty'])) {

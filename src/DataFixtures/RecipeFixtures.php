@@ -30,7 +30,9 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
             $createdAt = new \DateTimeImmutable($recipeData['created_at']);
 
             $recipe = new Recipe();
+            $recipe->setTitle($recipeData['title']);
             $recipe->setContent($recipeData['content']);
+            $recipe->setImage($recipeData['image']);
             $recipe->setCreatedAt($createdAt);
             $recipe->setDifficulty($difficulty);
             $recipe->setDuration($duration);

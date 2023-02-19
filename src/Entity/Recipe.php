@@ -37,13 +37,13 @@ class Recipe
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?RecipeDifficulty $difficulty = null;
 
-    #[ORM\Column(length: 1500)]
+    #[ORM\Column(length: 2000)]
     private ?string $content = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 150)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 500)]
+    #[ORM\Column(length: 1000)]
     private ?string $image = null;
 
     public function __construct()

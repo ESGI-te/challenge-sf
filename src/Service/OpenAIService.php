@@ -26,11 +26,13 @@ class OpenAIService
     }
 
     public function generateImage(string $prompt): string {
-        return $this->openAi->image([
+        $imageResponse = $this->openAi->image([
             "prompt" => $prompt,
             "n" => 1,
             "size" => "256x256",
             "response_format" => "url",
         ]);
+        $imageResponseDecoded = json_decode($imageResponse);
+        return $imageResponseDecoded->data[0]->url;
     }
 }

@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Recipe;
+use App\Form\RecipeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+#[Route('/recipes', name: 'recipe_')]
 class RecipeController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
@@ -17,9 +19,19 @@ class RecipeController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
+    #[Route('/', name: 'list')]
+    public function list(Request $request): Response
+    {
+        $sort = $request->query->get('sort', 'created_at'); // default sort by created_at
+        $recipes = $this->entityManager->getRepository(Recipe::class)->findBy([], ['createdAt' => 'DESC']);
+        return $this->render('recipe/list.html.twig', [
+            'recipes' => $recipes,
+            'sort' => $sort,
+        ]);
+    }
 
-    #[Route('/recipes/{id}', name: 'recipe_show')]
-    public function index($id): Response
+    #[Route('/{id}', name: 'show')]
+    public function show($id): Response
     {
         $recipe = $this->entityManager->getRepository(Recipe::class)->find($id);
 
@@ -32,14 +44,21 @@ class RecipeController extends AbstractController
         ]);
     }
 
-    #[Route('/recipes', name: 'recipe_list')]
-    public function listRecipes(Request $request): Response
+    #[Route('/generate', name: 'generate', priority: 2)]
+    public function generate(Request $request): Response
     {
-        $sort = $request->query->get('sort', 'created_at'); // default sort by created_at
-        $recipes = $this->entityManager->getRepository(Recipe::class)->findBy([], ['createdAt' => 'DESC']);
-        return $this->render('recipe/list.html.twig', [
-            'recipes' => $recipes,
-            'sort' => $sort,
+        $recipe = new Recipe();
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+        }
+
+        return $this->render('recipe/generate.html.twig', [
+            'form' => $form,
         ]);
     }
+
+
 }

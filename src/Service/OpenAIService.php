@@ -12,7 +12,7 @@ class OpenAIService
     }
 
     public function generateText(string $prompt): string {
-        return $this->openAi->completion([
+        $completion = $this->openAi->completion([
             'model' => 'text-davinci-003',
             'prompt' => $prompt,
             'temperature' => 0.9,
@@ -20,6 +20,9 @@ class OpenAIService
             'frequency_penalty' => 0,
             'presence_penalty' => 0.6,
         ]);
+        $completionDecoded = json_decode($completion);
+
+        return $completionDecoded->choices[0]->text;
     }
 
     public function generateImage(string $prompt): string {

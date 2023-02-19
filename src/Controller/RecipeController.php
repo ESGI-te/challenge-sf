@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Recipe;
 use App\Form\RecipeType;
+use App\Service\RecipeGenerationService;
+use App\Service\RecipeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,20 +47,19 @@ class RecipeController extends AbstractController
     }
 
     #[Route('/generate', name: 'generate', priority: 2)]
-    public function generate(Request $request): Response
+    public function generate(Request $request, RecipeService $recipeService): Response
     {
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $generatedRecipe = $recipeService->create($recipe);
+            return $this->redirectToRoute('recipe_show', ['id' => $generatedRecipe->getId()]);
         }
 
         return $this->render('recipe/generate.html.twig', [
             'form' => $form,
         ]);
     }
-
-
 }

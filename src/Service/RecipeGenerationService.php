@@ -2,60 +2,56 @@
 
 namespace App\Service;
 
+use App\Entity\Recipe;
+
 class RecipeGenerationService
 {
     public function __construct(OpenAIService $openAIService) {
         $this->openAiService = $openAIService;
     }
-    public function generateRecipe(array $params): string {
-        if (!isset($params['ingredients']) || !is_array($params['ingredients'])) {
-            throw new \InvalidArgumentException("Le paramètre 'ingredients' est manquant ou n'est pas un tableau.");
-        }
-        if (!isset($params['duration']) || !is_string($params['duration'])) {
-            throw new \InvalidArgumentException("Le paramètre 'duration' est manquant ou n'est pas un nombre.");
-        }
-        if (!isset($params['difficulty']) || !is_string($params['difficulty'])) {
-            throw new \InvalidArgumentException("Le paramètre 'difficulty' est manquant ou n'est pas une chaîne de caractères.");
-        }
-        if (!isset($params['nb_people']) || !is_numeric($params['nb_people'])) {
-            throw new \InvalidArgumentException("Le paramètre 'nb_people' est manquant ou n'est pas un nombre.");
-        }
 
-        $ingredients = implode(', ', $params['ingredients']);
-        $duration = $params['duration'];
-        $difficulty = $params['difficulty'];
-        $nb_people = $params['nb_people'];
+    public function generateContent(Recipe $recipe): string {
+        if (!$recipe->getIngredients()) {
+            throw new \InvalidArgumentException("No Ingredients provided");
+        }
+        $ingredients = $this->getIngredientNamesFormated($recipe->getIngredients()->toArray());
+        $duration = $recipe->getDuration()->getName() ?? 'undefined';
+        $difficulty = $recipe->getDifficulty()->getName() ?? 'undefined';
+        $nb_people = $recipe->getNbPeople() ?? 2;
 
         $prompt = "
-            Ignore all instructions before this one. You're a chief for 20 years. 
-            Your task is now to create a recipe with a $difficulty difficulty, for $nb_people, which is $duration to prepare and with the following ingredients : $ingredients
+            Ignore toutes les instructions précédent celle-ci. Tu es un chef cuisinier depuis 20 ans. 
+            Ta tâche est maintenant de créer une recette de cuisine d'une difficulté $difficulty, pour $nb_people personne(s).
+            Celle-ci doit être adaptée à une durée $duration et doit être basée sur les ingrédients suivants : $ingredients.
+            Ne rajoute pas de titre.
         ";
 
         return $this->openAiService->generateText($prompt);
     }
-    public function generateImage(array $ingredients): string {
-        if (!isset($ingredients) || !is_array($ingredients)) {
-            throw new \InvalidArgumentException("Le paramètre 'ingredients' est manquant ou n'est pas un tableau.");
-        }
 
-        $recipeIngredients = implode(', ', $ingredients);
+    public function generateImage(array $ingredients, string $title): string {
+        if (!isset($ingredients)) throw new \InvalidArgumentException("Le paramètre 'ingredients' est manquant ou n'est pas un tableau.");
+        if (!isset($title)) throw new \InvalidArgumentException("Le paramètre 'title' est manquant ou n'est pas un chaîne de caractères.");
 
-        $prompt = "Create a cover image for a recipe with the following ingredients : $recipeIngredients.";
+        $recipeIngredients = $this->getIngredientNamesFormated($ingredients);
+
+        $prompt = "Crée une image de présentation pour une recette intitulée $title et composée des ingrédients suivants : $recipeIngredients.";
 
         return $this->openAiService->generateImage($prompt);
     }
+
     public function generateTitle(array $ingredients): string {
-        if (!isset($ingredients) || !is_array($ingredients)) {
-            throw new \InvalidArgumentException("Le paramètre 'ingredients' est manquant ou n'est pas un tableau.");
-        }
+        if (!isset($ingredients)) throw new \InvalidArgumentException("Le paramètre 'ingredients' est manquant ou n'est pas un tableau.");
 
-        $recipeIngredients = implode(', ', $ingredients);
+        $recipeIngredients = $this->getIngredientNamesFormated($ingredients);
 
-        $prompt = "
-            Ignore all instructions before this one. You're a chief for 20 years. 
-            Your task is now to create a name for a recipe with the following ingredients : $recipeIngredients.
-        ";
+        $prompt = "Crée un titre élaboré pour une recette de cuisine composée des ingrédients suivants : $recipeIngredients.";
 
         return $this->openAiService->generateText($prompt);
+    }
+
+    private function getIngredientNamesFormated(array $ingredients): string {
+        $ingredientNames = array_map(fn($ingredient) => $ingredient->getName(), $ingredients);
+        return implode(', ', $ingredientNames);
     }
 }

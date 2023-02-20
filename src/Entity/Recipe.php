@@ -45,11 +45,16 @@ class Recipe
 
     #[ORM\Column(length: 1000)]
     private ?string $image = null;
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $comments;
+
 
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
+
 
     public function getId(): string
     {
@@ -159,7 +164,23 @@ class Recipe
 
     public function setTitle(string $title): self
     {
-        $this->title = $title;
+       $this->title = $title;
+       return  $this;
+    }
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setRecipe($this);
+        }
 
         return $this;
     }
@@ -172,6 +193,16 @@ class Recipe
     public function setImage(string $image): self
     {
         $this->image = $image;
+        return  $this;
+    }
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getRecipe() === $this) {
+                $comment->setRecipe(null);
+            }
+        }
 
         return $this;
     }

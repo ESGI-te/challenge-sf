@@ -1,0 +1,49 @@
+@import url('./fonts.css');
+
+:root {
+    --black: '#363534';
+    --background: '#F8F9FD';
+    --green: '#A0B492';
+    --yellow: '#FBD46D';
+}
+
+.body {
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 22px;
+    font-family: 'GeneralSans-Regular';
+}
+.heading-big {
+    font-weight: 600;
+    font-size: 2.5rem;
+    line-height: 54px;
+    font-family: 'GeneralSans-Bold';
+}
+.heading {
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 32px;
+    font-family: 'GeneralSans-Semibold';
+}
+.subheading {
+    font-weight: 400;
+    font-size: 2.5rem;
+    line-height: 54px;
+    font-family: 'GeneralSans-Regular';
+}
+.link {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 22px;
+    font-family: 'GeneralSans-Semibold';
+}
+.footnote {
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 16px;
+    font-family: 'GeneralSans-Regular';
+}
+.bold {
+    font-weight: 600;
+    font-family: 'GeneralSans-Bold';
+}

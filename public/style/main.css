@@ -1,10 +1,13 @@
 @import url('./fonts.css');
+@import url('./reset.css');
 
 :root {
     --black: '#363534';
     --background: '#F8F9FD';
     --green: '#A0B492';
     --yellow: '#FBD46D';
+
+    box-sizing: border-box;
 }
 
 .body {

@@ -1,9 +1,35 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Recipes List</h1>
+    <h1>Name</h1>
 
-    <ul>
-            <li>{{ recipe.content}}</li>
-    </ul>
+    <p>{{recipe.content}}</p>
+
+    <hr>
+
+    <h2>Comments</h2>
+
+    {% for comment in recipe.comments %}
+        <div class="comment">
+            <p>{{ comment.content }}</p>
+            <p>Posted by {{ comment.userId.username }} on {{ comment.createdAt|date('F j, Y, g:i a') }}</p>
+            {% if app.user is same as(comment.userId)  %}
+                <form action="{{ path('comment_delete', {'id': recipe.id, 'commentId': comment.id}) }}" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}" />
+                    <button type="submit">Delete</button>
+                </form>
+            {% endif %}
+
+        </div>
+    {% endfor %}
+
+    <hr>
+
+    <h2>Add Comment</h2>
+
+    {{ form_start(comment_form) }}
+    {{ form_widget(comment_form.content) }}
+    <button type="submit" class="btn btn-primary">Add Comment</button>
+    {{ form_end(comment_form) }}
+
 {% endblock %}

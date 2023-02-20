@@ -31,3 +31,10 @@ services:
     App\Service\OpenAIService:
         arguments:
             $openAiKey: '%env(OPEN_AI_API_KEY)%'
+
+    App\Form\CommentType:
+        tags: [ 'form.type' ]
+
+
+    App\Service\CommentService:
+        public: true

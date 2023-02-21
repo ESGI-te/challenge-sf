@@ -25,6 +25,9 @@ services:
     App\Service\RegisterService:
         arguments:
             $imageDirectory: '%kernel.project_dir%/upload/image/user_avatar'
+    App\Service\UserService:
+        arguments:
+            $imageDirectory: '%kernel.project_dir%/upload/image/user_avatar'
     App\Service\MailService:
         arguments:
             $sendinblueApiKey: '%env(SENDINBLUE_API_KEY)%'

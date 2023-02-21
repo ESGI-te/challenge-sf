@@ -7,8 +7,10 @@ use App\Form\RecipeType;
 use App\Service\RecipeService;
 use App\Form\CommentType;
 use App\Service\CommentService;
+use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,8 +27,22 @@ class RecipeController extends AbstractController
         $this->commentService = $commentService;
     }
 
-    #[Route('/', name: 'list')]
-    public function list(Request $request): Response
+    #[Route('/show/{id}', name: 'show')]
+    public function index($id): Response
+    {
+        $recipe = $this->entityManager->getRepository(Recipe::class)->find($id);
+
+        if (!$recipe) {
+            throw $this->createNotFoundException('Recipe not found');
+        }
+
+        return $this->render('recipe/index.html.twig', [
+            'recipe' => $recipe,
+        ]);
+    }
+
+    #[Route('/list', name: 'list')]
+    public function listRecipes(Request $request): Response
     {
         $sort = $request->query->get('sort', 'created_at'); // default sort by created_at
         $recipes = $this->entityManager->getRepository(Recipe::class)->findBy([], ['createdAt' => 'DESC']);
@@ -80,5 +96,15 @@ class RecipeController extends AbstractController
             $this->addFlash('success', 'Comment deleted successfully!');
         }
         return $this->redirectToRoute('recipe_show', ['id' => $recipe->getId()]);
+    }
+    
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    public function delete(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$recipe->getId(), $request->request->get('_token'))) {
+            $recipeRepository->remove($recipe, true);
+        }
+
+        return $this->redirectToRoute('user_recipes', [], Response::HTTP_SEE_OTHER);
     }
 }

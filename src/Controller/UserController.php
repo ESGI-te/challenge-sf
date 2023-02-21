@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,16 +24,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'profile', methods: ['GET'])]
-    public function public_profile(User $user): Response
-    {
-        return $this->render('user/profile.html.twig', [
-            'user' => $user,
-            'recipes' => $user->getRecipes()
-        ]);
-    }
-
-    #[Route('/show', name: 'show', methods: ['GET'])]
+    #[Route('/profile', name: 'profile_private', methods: ['GET'])]
     public function show(Security $security): Response
     {
         $user = $security->getUser();
@@ -45,8 +37,11 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws \Exception
+     */
     #[Route('/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Security $security,Request $request,UserRepository $userRepository): Response
+    public function edit(Security $security,Request $request,UserService $userService): Response
     {
         $user = $security->getUser();
         if (!$user) {
@@ -57,9 +52,10 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userRepository->save($user, true);
+            $avatar = $form->get('avatar')->getData();
+            $userService->update($user, $avatar);
 
-            return $this->redirectToRoute('user_show', [
+            return $this->redirectToRoute('user_profile_private', [
                 'id' => $user->getId()
             ], Response::HTTP_SEE_OTHER);
         }
@@ -78,6 +74,15 @@ class UserController extends AbstractController
             throw $this->createNotFoundException('User not found.');
         }
         return $this->render('user/recipes.html.twig', [
+            'user' => $user,
+            'recipes' => $user->getRecipes()
+        ]);
+    }
+
+    #[Route('/{id}', name: 'profile_public', methods: ['GET'])]
+    public function public_profile(User $user): Response
+    {
+        return $this->render('user/profile.html.twig', [
             'user' => $user,
             'recipes' => $user->getRecipes()
         ]);

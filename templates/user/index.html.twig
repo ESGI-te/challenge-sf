@@ -26,8 +26,8 @@
                 <td>{{ user.username }}</td>
                 <td>
 
-                    <a href="{{ path('user_show') }}">show</a>
-                    <a href="{{ path('user_profile',{'id': user.id}) }}">profile</a>
+                    <a href="{{ path('user_profile_private') }}">show</a>
+                    <a href="{{ path('user_profile_public',{'id': user.id}) }}">profile</a>
                     <a href="{{ path('user_edit') }}">edit</a>
                 </td>
             </tr>

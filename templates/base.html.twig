@@ -12,7 +12,8 @@
         <script defer src="{{ asset('js/main.js') }}"></script>
     </head>
     <body class="app">
-        {{ include('partials/_header.html.twig') }}
+        {% block header %}
+        {% endblock %}
         <aside id="app_menu" class="app-menu">
             <div class="app-menu__header">
                 <img class="app-menu__logo" id="app_menu_trigger" src="{{ asset('image/logo.svg') }}"/>

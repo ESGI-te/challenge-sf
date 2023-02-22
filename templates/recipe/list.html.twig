@@ -1,8 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Recipe List{% endblock %}
-
+{% block header %}
+    {{ include('partials/_header.html.twig') }}
+{% endblock %}
 {% block main %}
+    {{ include('partials/_searchbar.html.twig') }}
+
     <h1 class="title">Recipe List</h1>
 
     <form method="get">
@@ -24,35 +28,4 @@
             <p>No recipes found.</p>
         {% endfor %}
     </div>
-{% endblock %}
-{% block stylesheets %}
-    <style>
-        .recipe-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-
-        }
-
-        .recipe-card {
-            background-color: #f5f5f5;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin: 10px;
-            width: 300px;
-        }
-
-        .recipe-card-content {
-            padding: 10px;
-        }
-
-        .recipe-title {
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        .title{
-            text-align: center;
-        }
-
-    </style>
 {% endblock %}

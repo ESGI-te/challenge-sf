@@ -21,10 +21,11 @@ class RecipeController extends AbstractController
     private EntityManagerInterface $entityManager;
     private CommentService $commentService;
 
-    public function __construct(EntityManagerInterface $entityManager, CommentService $commentService)
+    public function __construct(EntityManagerInterface $entityManager, CommentService $commentService, RecipeService $recipeService)
     {
         $this->entityManager = $entityManager;
         $this->commentService = $commentService;
+        $this->recipeService = $recipeService;
     }
 
     #[Route('/show/{id}', name: 'show')]
@@ -71,14 +72,14 @@ class RecipeController extends AbstractController
     }
 
     #[Route('/generate', name: 'generate', priority: 2)]
-    public function generate(Request $request, RecipeService $recipeService): Response
+    public function generate(Request $request): Response
     {
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $generatedRecipe = $recipeService->create($recipe);
+            $generatedRecipe = $this->recipeService->create($recipe);
             return $this->redirectToRoute('recipe_show', ['id' => $generatedRecipe->getId()]);
         }
 
@@ -106,5 +107,17 @@ class RecipeController extends AbstractController
         }
 
         return $this->redirectToRoute('user_recipes', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/search', name: 'search', priority: 1)]
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+        $recipes = $this->recipeService->searchByTitle($query);
+
+        return $this->render('recipe/list.html.twig', [
+            'recipes' => $recipes,
+            'sort' => $request->query->get('sort', 'created_at')
+        ]);
     }
 }

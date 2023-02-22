@@ -39,6 +39,19 @@ class RecipeRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+    * @return Recipe[] Returns an array of Recipe objects
+    */
+    public function findBySubstring($param, $query)
+    {
+        return $this->createQueryBuilder('recipe')
+            ->andWhere("LOWER(recipe.$param) LIKE LOWER(:val)")
+            ->setParameter('val', $query . '%')
+            ->orderBy('recipe.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Recipe[] Returns an array of Recipe objects
 //     */

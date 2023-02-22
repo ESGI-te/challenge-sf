@@ -82,6 +82,7 @@
     overflow-x: hidden;
     padding: 0 1.75rem 2rem 1.75rem;
     flex: 1;
+    background-color: var(--background);
 }
 .menu-trigger {
     cursor: pointer;
@@ -93,7 +94,7 @@
     position: absolute;
     top: 0;
     left: -100%;
-    background-color: var(--background);
+    background-color: #FFFFFF;
     transform: translateX(-100%);
     transition: 0.3s;
     padding: 1.5rem 1rem;
@@ -124,7 +125,26 @@
     align-items: center;
     column-gap: 0.5rem;
 }
-
+.searchForm {
+    width: 100%;
+    position: relative;
+    height: 56px;
+}
+.searchForm input[type="text"]{
+    width: calc(100% - 5rem);
+    height: 100%;
+    padding-left: 3.5rem;
+    padding-right: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    border: none;
+}
+.searchForm > img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1.5rem;
+}
 @media only screen and (min-width: 768px) {
     .app-header {
         display: none;

@@ -2,16 +2,34 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Toke{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('style/main.css') }}">
         {% endblock %}
-
         {% block javascripts %}
         {% endblock %}
+        <script defer src="{{ asset('js/main.js') }}"></script>
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body class="app">
+        {{ include('partials/_header.html.twig') }}
+        <aside id="app_menu" class="app-menu">
+            <div class="app-menu__header">
+                <img class="app-menu__logo" id="app_menu_trigger" src="{{ asset('image/logo.svg') }}"/>
+                <img class="menu-trigger" id="app_menu_trigger" src="{{ asset('icons/close.svg') }}"/>
+            </div>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><img alt="House" src="{{ asset('icons/Home.svg') }}"><a class="footnote bold" href="">Home</a></li>
+                    <li class="nav__item"><img alt="Book" src="{{ asset('icons/Book.svg') }}"><a class="footnote bold" href="">Recipes</a></li>
+                    <li class="nav__item"><img alt="Magnifying glass" src="{{ asset('icons/Search.svg') }}"><a class="footnote bold" href="">Search</a></li>
+                    <li class="nav__item"><img alt="Avatar" src="{{ asset('icons/User.svg') }}"><a class="footnote bold" href="">Profil</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="app-main">
+            {% block main %}
+            {% endblock %}
+        </main>
     </body>
 </html>

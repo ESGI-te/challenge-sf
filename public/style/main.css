@@ -1,5 +1,6 @@
 @import url('./fonts.css');
 @import url('./reset.css');
+@import url('./components.css');
 
 :root {
     /* COLORS */
@@ -14,6 +15,8 @@
     --large-screen: 992px;
     --extra-large-screen: 1200px;
 
+}
+* {
     box-sizing: border-box;
 }
 
@@ -66,6 +69,7 @@
 .app {
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 .app-header {
     height: 56px;
@@ -75,10 +79,12 @@
     justify-content: start;
     padding-left: 1.75rem;
     padding-right: 1.75rem;
+    background-color: background;
 }
 .app-main {
-    min-height: calc(100vh - 88px); // Header + padding
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
     overflow-x: hidden;
     padding: 0 1.75rem 2rem 1.75rem;
     flex: 1;
@@ -125,26 +131,7 @@
     align-items: center;
     column-gap: 0.5rem;
 }
-.searchForm {
-    width: 100%;
-    position: relative;
-    height: 56px;
-}
-.searchForm input[type="text"]{
-    width: calc(100% - 5rem);
-    height: 100%;
-    padding-left: 3.5rem;
-    padding-right: 1.5rem;
-    background-color: #ffffff;
-    border-radius: 0.5rem;
-    border: none;
-}
-.searchForm > img {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 1.5rem;
-}
+
 @media only screen and (min-width: 768px) {
     .app-header {
         display: none;

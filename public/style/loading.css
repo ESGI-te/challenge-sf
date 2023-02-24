@@ -25,11 +25,13 @@
         position: absolute;
         left: 0;
         top: 0;
+        display: block;
     }
     .container >:last-child {
         position: absolute;
         right: 0;
         bottom: 0;
+        display: block;
     }
     .loader {
         width: 398px;

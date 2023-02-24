@@ -1,0 +1,60 @@
+/* Buttons */
+.button {
+    border: solid 1px var(--green);
+    width: 100%;
+    max-width: 318px;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.button--primary {
+    background-color: var(--green);
+    color: #FFFFFF;
+}
+
+.button--secondary {
+    background-color: #FFFFFF;
+    color: var(--green);
+}
+
+/* Inputs */
+input, select {
+    width: 100%;
+    max-width: 318px;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    border: solid 1px var(--black);
+    background-color: #ffffff;
+}
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
+.inputWrapper > label {
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 16px;
+    font-family: 'GeneralSans-Regular';
+    color: black;
+}
+.searchForm {
+    width: 100%;
+    position: relative;
+    height: 56px;
+}
+.searchForm input[type="text"]{
+    width: calc(100% - 5rem);
+    max-width: unset;
+    height: 100%;
+    padding-left: 3.5rem;
+    padding-right: 1.5rem;
+    border: none;
+}
+.searchForm > img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1.5rem;
+}

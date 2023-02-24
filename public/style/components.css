@@ -19,7 +19,7 @@
 }
 
 /* Inputs */
-input, select {
+input[type="text"], input[type="password"], input[type="email"], select {
     width: 100%;
     max-width: 318px;
     padding: 1rem 1.5rem;

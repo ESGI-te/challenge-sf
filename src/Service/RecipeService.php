@@ -90,4 +90,15 @@ class RecipeService
         return false;
     }
 
+    public function getRecipesWithDetails(): array
+    {
+        $query = $this->em->createQuery('
+        SELECT r.id, d.name AS difficulty, dur.name AS duration, u.email AS user_email, r.content, r.nb_people, r.createdAt
+        FROM App\Entity\Recipe r
+        LEFT JOIN App\Entity\RecipeDifficulty d WITH r.difficulty = d
+        LEFT JOIN App\Entity\RecipeDuration dur WITH r.duration = dur
+        LEFT JOIN App\Entity\User u WITH r.user_id = u.id
+        ');
+        return $query->getResult();
+    }
 }

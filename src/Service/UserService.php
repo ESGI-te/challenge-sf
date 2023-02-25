@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Utilities\Constants;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -13,16 +14,20 @@ class UserService
 
     private string $imageDirectory;
     private FileService $fs;
+    private EntityManagerInterface $em;
     private UserRepository $userRepository;
 
     public function __construct(
         string $imageDirectory,
         UserRepository $userRepository,
-        FileService $fs
+        FileService $fs,
+        EntityManagerInterface $em
+
     ) {
         $this->userRepository = $userRepository;
         $this->fs = $fs;
         $this->imageDirectory = $imageDirectory;
+        $this->em = $em;
     }
 
     /**
@@ -47,5 +52,16 @@ class UserService
     public function deleteAvatarFile(User $user)
     {
         $this->fs->delete($this->getFile($user), directory: $this->imageDirectory);
+    }
+
+    public function getUsersWithDetails(): array
+    {
+        $query = $this->em->createQuery('
+        SELECT u.id, u.firstname, u.lastname, u.email, u.roles, u.username, p.name AS plan
+        FROM App\Entity\User u
+        JOIN u.plan p
+        ORDER BY u.email
+        ');
+        return $query->getResult();
     }
 }

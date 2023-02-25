@@ -50,5 +50,29 @@ class CommentService
         $this->entityManager->flush();
     }
 
+    public function getCommentsWithDetails(): array
+    {
+        $query = $this->entityManager->createQuery('
+        SELECT c.id, u.email AS user_email, c.content, r.title AS recipeTitle, c.created_at
+        FROM App\Entity\Comment c
+        LEFT JOIN App\Entity\Recipe r WITH c.recipe = r
+        LEFT JOIN App\Entity\User u WITH c.user_id = u.id
+        ');
+        return $query->getResult();
+    }
+
+    public function getCommentWithDetails($commentId): array
+    {
+        $query = $this->entityManager->createQuery('
+        SELECT c.id, u.email AS user_email, c.content, r.title AS recipeTitle, c.created_at
+        FROM App\Entity\Comment c
+        LEFT JOIN App\Entity\Recipe r WITH c.recipe = r
+        LEFT JOIN App\Entity\User u WITH c.user_id = u.id
+        WHERE c.id = :commentId
+        ');
+        $query->setParameter('commentId', $commentId);
+        return $query->getResult();
+    }
+
 }
 

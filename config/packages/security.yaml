@@ -32,6 +32,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/BO, roles: [IS_FULLY_AUTHENTICATED, ROLE_ADMIN] }
+         - { path: ^/admin, roles: [IS_FULLY_AUTHENTICATED, ROLE_ADMIN] }
          - { path: /login, roles: PUBLIC_ACCESS }
          - { path: /register, roles: PUBLIC_ACCESS }
          - { path: /login-check, roles: PUBLIC_ACCESS }

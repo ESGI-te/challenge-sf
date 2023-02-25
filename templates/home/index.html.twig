@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('style/list.css') }}">
+{% endblock %}
+{% block header %}
+    {{ include('partials/_header.html.twig') }}
+{% endblock %}
+{% block menu %}
+    {{ include('partials/_menu.html.twig') }}
+{% endblock %}
+
+{% block main %}
+    {{ include('partials/_searchbar.html.twig') }}
+    <div class="container">
+        <div>
+            <img class="imgContainer" src="{{ asset('image/Preparing.svg') }}" alt="Your Image">
+        </div>
+        <div class="container-content">
+            <h2 class="text-content">Générez des recettes délicieuses a partir de ce que vous avez dans votre frigo !</h2>
+            <a href="{{ path('recipe_generate') }}">
+                <button class="button button--primary">Générer une recette</button>
+            </a>
+        </div>
+    </div>
+    <div class="sort">
+        <h1 class="body">Vos dernières recettes générées</h1>
+        <form method="get" class="body">
+            <select class="sortSelector" id="sort" name="sort" onchange="this.form.submit()">
+                <option value="created_at_desc"{% if sort == 'created_at_desc' %} selected{% endif %}>Nouvelle</option>
+                <option value="created_at_asc"{% if sort == 'created_at_asc' %} selected{% endif %}>Ancienne</option>
+            </select>
+        </form>
+    </div>
+    <div class="list-wrapper">
+        {% for recipe in recipes %}
+            <div class="recipe-wrapper">
+                <a href="{{ path('recipe_show', { 'id': recipe.id }) }}">
+                    <div class="recipe-card" style="background-image: url('{{ recipe.image }}');">
+                        <h1>{{ recipe.title }}</h1>
+                    </div>
+                </a>
+            </div>
+        {% else %}
+            <p>No recipes found.</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}

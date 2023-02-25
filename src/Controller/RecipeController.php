@@ -42,17 +42,6 @@ class RecipeController extends AbstractController
         ]);
     }
 
-    #[Route('/list', name: 'list')]
-    public function listRecipes(Request $request): Response
-    {
-        $sort = $request->query->get('sort', 'created_at'); // default sort by created_at
-        $recipes = $this->entityManager->getRepository(Recipe::class)->findBy([], ['createdAt' => 'DESC']);
-        return $this->render('recipe/list.html.twig', [
-            'recipes' => $recipes,
-            'sort' => $sort,
-        ]);
-    }
-
     #[Route('/{id}', name: 'show')]
     public function show(Recipe $recipe, Request $request): Response
     {

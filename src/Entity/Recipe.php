@@ -48,14 +48,16 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
-
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
-
+    public function __toString() : string
+    {
+        return $this->getTitle();
+    }
     public function getId(): string
     {
         return $this->id;

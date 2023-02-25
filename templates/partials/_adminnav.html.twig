@@ -1,0 +1,41 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bootstrap-5.0.2/css/bootstrap.css') }}">
+{% endblock %}
+<aside class="col-3 border border-light bg-white p-2">
+    <article class="card mb-3">
+        <div class="card-header">
+            Utilisateur
+        </div>
+        <div class="card-body">
+            <p class="m-2"><a href="{{ path('admin_users') }}">Liste des Utilisateur</a></p>
+        </div>
+    </article>
+    <article class="card mb-3">
+        <div class="card-header">
+            Catégorie Ingrédients
+        </div>
+        <div class="card-body">
+            <p class="m-2"><a href="{{ path('app_ingredient_index') }}">Liste des Ingrédients</a></p>
+            <p class="m-2"><a href="{{ path('app_ingredient_type_index') }}">Types des Ingrédients</a></p>
+        </div>
+    </article>
+    <article class="card mb-3">
+        <div class="card-header">
+            Catégorie Recettes
+        </div>
+        <div class="card-body">
+            <p class="m-2"><a href="{{ path('admin_recipes') }}">Liste des Recettes</a></p>
+            <p class="m-2"><a href="{{ path('app_recipe_difficulty_index') }}">Difficulté de la recette</a></p>
+            <p class="m-2"><a href="{{ path('app_recipe_duration_index') }}">Durée de la recette</a></p>
+        </div>
+    </article>
+    <article class="card mb-3">
+        <div class="card-header">
+            Catégorie commentaire
+        </div>
+        <div class="card-body">
+            <p class="m-2"><a href="{{ path('app_comment_index') }}">Liste des commentaires</a></p>
+        </div>
+    </article>
+</aside>
+

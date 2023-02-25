@@ -60,10 +60,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: RecipeRequest::class, orphanRemoval: true)]
+    private Collection $recipeRequests;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Plan $plan = null;
+
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->recipeRequests = new ArrayCollection();
     }
 
     public function getId(): string
@@ -267,6 +274,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $comment->setUserId(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RecipeRequest>
+     */
+    public function getRecipeRequests(): Collection
+    {
+        return $this->recipeRequests;
+    }
+
+    public function addRecipeRequest(RecipeRequest $recipeRequest): self
+    {
+        if (!$this->recipeRequests->contains($recipeRequest)) {
+            $this->recipeRequests->add($recipeRequest);
+            $recipeRequest->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipeRequest(RecipeRequest $recipeRequest): self
+    {
+        if ($this->recipeRequests->removeElement($recipeRequest)) {
+            // set the owning side to null (unless already changed)
+            if ($recipeRequest->getUserId() === $this) {
+                $recipeRequest->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPlan(): ?Plan
+    {
+        return $this->plan;
+    }
+
+    public function setPlan(?Plan $plan): self
+    {
+        $this->plan = $plan;
 
         return $this;
     }

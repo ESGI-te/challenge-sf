@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\PlanRepository;
 use App\Repository\UserRepository;
 use App\Service\PaymentService;
 use Stripe\Exception\ApiErrorException;
@@ -19,9 +20,10 @@ class PaymentController extends AbstractController
 
     private PaymentService $paymentService;
 
-    public function __construct(Security $security, UserRepository $userRepository)
+    public function __construct(Security $security, UserRepository $userRepository,PlanRepository $planRepository)
     {
         $this->paymentService = new PaymentService($security,$userRepository) ;
+        $this->planRepository = $planRepository;
     }
 
     #[Route('/', name: 'payment')]
@@ -51,6 +53,8 @@ class PaymentController extends AbstractController
     #[Route('/success/{slug}', name: 'success')]
     public function success(UserRepository $userRepository,SessionInterface $session): Response
     {
+        $premium_plan = $this->planRepository->findOneBy(['name'=>'Premium']);
+
         $encryptedSlug = $session->get('payment_slug');
         $slug = $this->paymentService->getInstance()->getToken();
         $decryptedSlug = hash('sha256',  $slug);
@@ -59,7 +63,7 @@ class PaymentController extends AbstractController
         if (!$validSlug){
             return $this->render('payment/cancel.html.twig', []);
         }
-        $this->paymentService->updateRoles(["ROLE_USER","IS_FULLY_AUTHENTICATED","PREMIUM"]);
+        $this->paymentService->updatePlan($premium_plan);
         $userRepository->save($this->paymentService->getInstance(),true);
         return $this->render('payment/success.html.twig', []);
     }
@@ -70,5 +74,10 @@ class PaymentController extends AbstractController
         return $this->render('payment/cancel.html.twig', []);
     }
 
+    #[Route('/max_recipe', name: 'max')]
+    public function max(): Response
+    {
+        return $this->render('payment/max_recipe.html.twig', []);
+    }
 }
 

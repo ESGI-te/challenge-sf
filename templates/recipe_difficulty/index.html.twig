@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}RecipeDifficulty index{% endblock %}
+{% block title %}Difficulté de la recette {% endblock %}
 
 {% block main %}
 
@@ -8,14 +8,14 @@
         <div class="row"></div>
         {{ include('partials/_adminnav.html.twig') }}
         <main class="col-9 border border-light bg-white p-2">
-            <h1>RecipeDifficulty index</h1>
+            <h1>Difficulté de la recette </h1>
             <a class="btn btn-primary m-4" href="{{ path('app_recipe_difficulty_new') }}">Create new</a>
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th class="col-md-4">Id</th>
-                    <th class="col-md-4">Name</th>
-                    <th class="col-md-4">actions</th>
+                    <th class="col-md-4">Nom</th>
+                    <th class="col-md-4">action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -24,14 +24,14 @@
                         <td class="col-md-4">{{ recipe_difficulty.id }}</td>
                         <td class="col-md-4">{{ recipe_difficulty.name }}</td>
                         <td class="col-md-4">
-                            <a class="btn btn-secondary" href="{{ path('app_recipe_difficulty_show', {'id': recipe_difficulty.id}) }}">show</a>
-                            <a class="btn btn-success" href="{{ path('app_recipe_difficulty_edit', {'id': recipe_difficulty.id}) }}">edit</a>
+                            <a class="btn btn-secondary" href="{{ path('app_recipe_difficulty_show', {'id': recipe_difficulty.id}) }}">Afficher</a>
+                            <a class="btn btn-success" href="{{ path('app_recipe_difficulty_edit', {'id': recipe_difficulty.id}) }}">Modifier</a>
                             {{ include('recipe_difficulty/_delete_form.html.twig') }}
                         </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="3">no records found</td>
+                        <td colspan="3">Aucun enregistrement trouvé</td>
                     </tr>
                 {% endfor %}
                 </tbody>

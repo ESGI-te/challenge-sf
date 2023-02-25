@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserEditType;
 use App\Form\UserType;
+use App\Repository\PlanRepository;
 use App\Repository\UserRepository;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,20 +13,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/user',name: 'user_')]
 class UserController extends AbstractController
 {
 
-    #[Route('/', name: 'index', methods: ['GET']), IsGranted('ROLE_ADMIN')]
-    public function index(UserRepository $userRepository): Response
-    {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
-    }
+
 
     #[Route('/profile', name: 'profile_private', methods: ['GET'])]
     public function show(Security $security): Response
@@ -36,6 +31,28 @@ class UserController extends AbstractController
 
         return $this->render('user/show.html.twig', [
             'user' => $user,
+        ]);
+    }
+
+    #[Route('/editAdmin/{id}', name: 'profile_edit_admin', methods: ['GET', 'POST']), IsGranted("ROLE_ADMIN")]
+    public function editAdmin(Request $request, User $user, UserRepository $userRepository): Response
+    {
+
+        $form = $this->createForm(UserEditType::class, $user, [
+            'admin_roles' => $user->getRoles(),
+            'user_plan' => $user->getPlan(),
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository->save($user, true);
+
+            return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('user/editAdmin.html.twig', [
+            'user' => $user,
+            'form' => $form,
         ]);
     }
 

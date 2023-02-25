@@ -33,19 +33,7 @@ class RecipeController extends AbstractController
         $this->recipeService = $recipeService;
     }
 
-    #[Route('/', name: 'list_admin'), IsGranted("ROLE_ADMIN")]
-    public function listAdmin(): Response
-    {
-        $recipes = $this->recipeService->getRecipesWithDetails();
 
-        if (!$recipes) {
-            throw $this->createNotFoundException('Recipe not found');
-        }
-
-        return $this->render('recipe/listAdmin.html.twig', [
-            'recipes' => $recipes,
-        ]);
-    }
 
     #[Route('/show/{id}', name: 'show')]
     public function index($id): Response

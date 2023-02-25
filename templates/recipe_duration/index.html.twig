@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}RecipeDuration index{% endblock %}
+{% block title %}Durée de la recette {% endblock %}
 {% block main %}
     <div class="container d-flex justify-content-between">
         <div class="row "></div>
         {{ include('partials/_adminnav.html.twig') }}
         <main class="col-9 border border-light bg-white p-2">
-            <h1>RecipeDuration index</h1>
+            <h1>Durée de la recette </h1>
             <a class="btn btn-primary m-4" href="{{ path('app_recipe_duration_new') }}">Create new</a>
             <table class="table table-striped">
                 <thead>
@@ -22,14 +22,14 @@
                         <td>{{ recipe_duration.id }}</td>
                         <td>{{ recipe_duration.name }}</td>
                         <td>
-                            <a class="btn btn-secondary" href="{{ path('app_recipe_duration_show', {'id': recipe_duration.id}) }}">show</a>
-                            <a class="btn btn-success" href="{{ path('app_recipe_duration_edit', {'id': recipe_duration.id}) }}">edit</a>
+                            <a class="btn btn-secondary" href="{{ path('app_recipe_duration_show', {'id': recipe_duration.id}) }}">Afficher</a>
+                            <a class="btn btn-success" href="{{ path('app_recipe_duration_edit', {'id': recipe_duration.id}) }}">Modifier</a>
                             {{ include('recipe_duration/_delete_form.html.twig') }}
                         </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="3">no records found</td>
+                        <td colspan="3">Aucun enregistrement trouvé</td>
                     </tr>
                 {% endfor %}
                 </tbody>

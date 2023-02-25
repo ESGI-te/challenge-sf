@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New IngredientType{% endblock %}
+{% block title %}Types d'ingrédients {% endblock %}
 
 {% block main %}
     <div class="container d-flex justify-content-between">
         <div class="row"></div>
         {{ include('partials/_adminnav.html.twig') }}
         <main class="col-9 border border-light bg-white p-2">
-            <h1>Create new IngredientType</h1>
+            <h1>Types d'ingrédients</h1>
 
             {{ include('ingredient_type/_form.html.twig') }}
 
-            <a  class="btn btn-secondary" href="{{ path('app_ingredient_type_index') }}">back to list</a>
+            <a  class="btn btn-secondary" href="{{ path('app_ingredient_type_index') }}">retour à la liste</a>
 
         </main>
     </div>

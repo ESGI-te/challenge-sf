@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit RecipeDuration{% endblock %}
+{% block title %}Durée de la recette {% endblock %}
 {% block main %}
 
 
@@ -9,11 +9,11 @@
         {{ include('partials/_adminnav.html.twig') }}
         <main class="col-9 border border-light bg-white p-2">
 
-            <h1>Edit RecipeDuration</h1>
+            <h1>Durée de la recette </h1>
 
             {{ include('recipe_duration/_form.html.twig', {'button_label': 'Update'}) }}
 
-            <a class="btn btn-secondary" href="{{ path('app_recipe_duration_index') }}">back to list</a>
+            <a class="btn btn-secondary" href="{{ path('app_recipe_duration_index') }}">retour à la liste</a>
 
             {{ include('recipe_duration/_delete_form.html.twig') }}
         </main>

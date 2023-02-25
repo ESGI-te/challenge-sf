@@ -35,9 +35,11 @@
     <div class="list-wrapper">
         {% for recipe in recipes %}
             <div class="recipe-wrapper">
-                        <div class="recipe-card" style="background-image: url('{{ recipe.image }}');">
-                            <h1>{{ recipe.title }}</h1>
-                        </div>
+                <a href="{{ path('recipe_show', { 'id': recipe.id }) }}">
+                    <div class="recipe-card" style="background-image: url('{{ recipe.image }}');">
+                        <h1>{{ recipe.title }}</h1>
+                    </div>
+                </a>
             </div>
         {% else %}
             <p>No recipes found.</p>

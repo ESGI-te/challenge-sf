@@ -3,40 +3,61 @@
 {% block title %}User index{% endblock %}
 
 {% block main %}
-    <h1>User index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Avatar</th>
-                <th>Username</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.email }}</td>
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.avatar }}</td>
-                <td>{{ user.username }}</td>
-                <td>
+    <div class="container d-flex justify-content-between">
+        <div class="row"></div>
+        {{ include('partials/_adminnav.html.twig') }}
+        <main class="col-9 border border-light bg-white p-2">
+            <h1>User index</h1>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Roles</th>
+                    <th>Username</th>
+                    <th>actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.firstname }}</td>
+                        <td>{{ user.lastname }}</td>
+                        <td>
+                            {% set name = "" %}
+                            {% for role in user.roles %}
+                                {% if role == "IS_FULLY_AUTHENTICATED" %}
+                                    {% set name = "Verified" %}
+                                    {% set color = "success" %}
+                                {% elseif role == "ROLE_ADMIN" %}
+                                    {% set name = "Administateur" %}
+                                    {% set color = "danger" %}
+                                 {% elseif role == "ROLE_USER" %}
+                                    {% set name = "Utilisateur" %}
+                                     {% set color = "warning" %}
+                                {% endif %}
+                                <span class="badge bg-{{ color }}">{{ name }}</span>
+                            {% endfor %}
+                        </td>
+                        <td>{{ user.username }}</td>
+                        <td>
 
-                    <a href="{{ path('user_profile_private') }}">show</a>
-                    <a href="{{ path('user_profile_public',{'id': user.id}) }}">profile</a>
-                    <a href="{{ path('user_edit') }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                            <a class="btn btn-secondary" href="{{ path('user_profile_public',{'id': user.id}) }}">profile</a>
+                            <a class="btn btn-success" href="{{ path('user_edit') }}">edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+
 
 {% endblock %}

@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Recipe;
 use App\Entity\RecipeRequest;
 use App\Form\RecipeType;
-use App\Service\RecipeService;
+use App\Service\IngredientService;
 use App\Form\CommentType;
 use App\Service\CommentService;
 use App\Repository\RecipeRepository;
+use App\Service\RecipeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -17,6 +18,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/recipes', name: 'recipe_')]
 class RecipeController extends AbstractController
@@ -31,6 +33,20 @@ class RecipeController extends AbstractController
         $this->recipeService = $recipeService;
     }
 
+    #[Route('/', name: 'list_admin'), IsGranted("ROLE_ADMIN")]
+    public function listAdmin(): Response
+    {
+        $recipes = $this->recipeService->getRecipesWithDetails();
+
+        if (!$recipes) {
+            throw $this->createNotFoundException('Recipe not found');
+        }
+
+        return $this->render('recipe/listAdmin.html.twig', [
+            'recipes' => $recipes,
+        ]);
+    }
+
     #[Route('/show/{id}', name: 'show')]
     public function index($id): Response
     {
@@ -41,7 +57,7 @@ class RecipeController extends AbstractController
         }
 
         return $this->render('recipe/index.html.twig', [
-            'recipe' => $recipe,
+            'recipes' => $recipe,
         ]);
     }
 

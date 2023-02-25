@@ -2,7 +2,9 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Plan;
 use App\Entity\User;
+use App\Repository\PlanRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
@@ -11,11 +13,13 @@ use Symfony\Component\Yaml\Yaml;
 
 class UserFixtures extends Fixture
 {
-    public function __construct(UserPasswordHasherInterface $passwordHasher) {
+    public function __construct(UserPasswordHasherInterface $passwordHasher,PlanRepository $planRepository) {
         $this->passwordHasher = $passwordHasher;
+        $this->planRepository = $planRepository;
     }
     public function load(ObjectManager $manager): void
     {
+        $default_plan = $this->planRepository->findOneBy(['name'=>'Basic']);
         $userIndex = 0;
         $users = Yaml::parseFile(__DIR__ . '/users.yaml');
         foreach ($users as $userData) {
@@ -30,6 +34,7 @@ class UserFixtures extends Fixture
             $user->setToken(Uuid::uuid4());
             $user->setRoles([...$user->getRoles(), 'IS_FULLY_AUTHENTICATED']);
             $user->setCreatedAt($createdAt);
+            $user->setPlan($default_plan);
             $manager->persist($user);
             $userIndex++;
             $this->addReference('user_' . $userIndex, $user);

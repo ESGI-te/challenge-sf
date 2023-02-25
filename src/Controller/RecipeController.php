@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Recipe;
+use App\Entity\RecipeRequest;
 use App\Form\RecipeType;
 use App\Service\RecipeService;
 use App\Form\CommentType;
 use App\Service\CommentService;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,6 +74,10 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
     #[Route('/generate', name: 'generate', priority: 2)]
     public function generate(Request $request): Response
     {
@@ -80,7 +87,15 @@ class RecipeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $generatedRecipe = $this->recipeService->create($recipe);
-            return $this->redirectToRoute('recipe_show', ['id' => $generatedRecipe->getId()]);
+            if ($generatedRecipe !== null)
+            {
+                return $this->redirectToRoute('recipe_show', ['id' => $generatedRecipe->getId()]);
+            }
+            else
+            {
+                return $this->redirectToRoute('stripe_max', []);
+            }
+
         }
 
         return $this->render('recipe/generate.html.twig', [

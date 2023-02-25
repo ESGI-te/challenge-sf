@@ -60,4 +60,9 @@ class PaymentService
         $this->user->setRoles($roles);
     }
 
+    public function updatePlan($plan): void
+    {
+        $this->user->setPlan($plan);
+    }
+
 }

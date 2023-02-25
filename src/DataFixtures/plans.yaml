@@ -1,0 +1,10 @@
+plan_1:
+   name: Basic
+   description: Basic plan with 2 recipes per day
+   nb_recipe: 2
+   nb_ingredient: 10
+plan_2:
+  name: Premium
+  description: Premium plan with 10 recipes per day
+  nb_recipe: 10
+  nb_ingredient: 50

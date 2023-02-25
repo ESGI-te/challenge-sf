@@ -2,7 +2,9 @@
 
 namespace App\Service;
 
+use App\Entity\Plan;
 use App\Entity\User;
+use App\Repository\PlanRepository;
 use App\Repository\UserRepository;
 use App\Utilities\Constants;
 use DateTimeImmutable;
@@ -21,7 +23,8 @@ class RegisterService
         EntityManagerInterface $em,
         Environment $twig,
         UserRepository $userRepository,
-        FileService $fs
+        FileService $fs,
+        PlanRepository $planRepository
     ) {
         $this->passwordHasher = $passwordHasher;
         $this->mailService = $mailService;
@@ -30,8 +33,11 @@ class RegisterService
         $this->userRepository = $userRepository;
         $this->fs = $fs;
         $this->imageDirectory = $imageDirectory;
+        $this->planRepository = $planRepository;
     }
     public function register(User $user, UploadedFile $avatar): void {
+
+        $default_plan = $this->planRepository->findOneBy(['name'=>'Basic']);
         $token = Uuid::uuid4();
         $date = new DateTimeImmutable('now');
         $hash = $this->passwordHasher->hashPassword($user, $user->getPassword());
@@ -40,6 +46,7 @@ class RegisterService
         $user->setPassword($hash);
         $user->setCreatedAt($date);
         $user->setToken($token);
+        $user->setPlan($default_plan);
         $this->em->persist($user);
         $this->em->flush();
         $this->sendEmailConfirmation($user, $token);

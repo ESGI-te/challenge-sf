@@ -133,6 +133,15 @@
     column-gap: 0.5rem;
 }
 
+.nav__item:last-child {
+   margin-top: 40vh;
+}
+
+.logout
+{
+    background-color: #ff6d6d;
+}
+
 @media only screen and (min-width: 768px) {
     .app-header {
         display: none;

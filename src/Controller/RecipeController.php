@@ -107,14 +107,13 @@ class RecipeController extends AbstractController
         return $this->redirectToRoute('recipe_show', ['id' => $recipe->getId()]);
     }
     
-    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$recipe->getId(), $request->request->get('_token'))) {
             $recipeRepository->remove($recipe, true);
         }
-
-        return $this->redirectToRoute('user_recipes', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/search', name: 'search', priority: 1)]

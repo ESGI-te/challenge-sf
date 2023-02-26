@@ -3,6 +3,9 @@ user_1:
   password: password
   firstname: John
   lastname: Doe
+  roles:
+    - ROLE_ADMIN
+    - IS_FULLY_AUTHENTICATED
   created_at: '2023-02-18 12:00:00'
   username: johndoe
 user_2:
@@ -10,6 +13,8 @@ user_2:
   password: password
   firstname: Jane
   lastname: Smith
+  roles:
+    - IS_FULLY_AUTHENTICATED
   created_at: '2023-02-18 12:00:00'
   username: janesmith
 user_3:
@@ -17,6 +22,8 @@ user_3:
   password: password
   firstname: William
   lastname: Johnson
+  roles:
+    - IS_FULLY_AUTHENTICATED
   created_at: '2023-02-18 12:00:00'
   username: williamjohnson
 user_4:
@@ -24,6 +31,8 @@ user_4:
   password: password
   firstname: Elizabeth
   lastname: Brown
+  roles:
+    - IS_FULLY_AUTHENTICATED
   created_at: '2023-02-18 12:00:00'
   username: elizabethbrown
 user_5:
@@ -31,6 +40,8 @@ user_5:
   password: password
   firstname: Michael
   lastname: Davis
+  roles:
+    - IS_FULLY_AUTHENTICATED
   created_at: '2023-02-18 12:00:00'
   username: michaeldavis
 user_6:
@@ -38,6 +49,8 @@ user_6:
   password: password
   firstname: Sarah
   lastname: Miller
+  roles:
+    - IS_FULLY_AUTHENTICATED
   created_at: '2023-02-18 12:00:00'
   username: sarahmiller
 user_7:
@@ -45,6 +58,8 @@ user_7:
   password: password
   firstname: David
   lastname: Wilson
+  roles:
+    - IS_FULLY_AUTHENTICATED
   created_at: '2023-02-18 12:00:00'
   username: davidwilson
 user_8:
@@ -52,6 +67,8 @@ user_8:
   password: password
   firstname: Emily
   lastname: Moore
+  roles:
+    - IS_FULLY_AUTHENTICATED
   created_at: '2023-02-18 12:00:00'
   username: emilymoore
 user_9:
@@ -59,6 +76,8 @@ user_9:
   password: password
   firstname: James
   lastname: Taylor
+  roles:
+    - IS_FULLY_AUTHENTICATED
   created_at: '2023-02-18 12:00:00'
   username: jamestaylor
 user_10:
@@ -66,6 +85,8 @@ user_10:
   password: password
   firstname: Ashley
   lastname: Anderson
+  roles:
+    - IS_FULLY_AUTHENTICATED
   created_at: '2023-02-18 12:00:00'
   username: ashleyanderson
 user_11:
@@ -73,6 +94,8 @@ user_11:
   password: password
   firstname: Christopher
   lastname: Thomas
+  roles:
+    - IS_FULLY_AUTHENTICATED
   created_at: '2023-02-18 12:00:00'
   username: christopherthomas
 user_12:
@@ -80,5 +103,7 @@ user_12:
   password: password
   firstname: Amanda
   lastname: Jackson
+  roles:
+    - IS_FULLY_AUTHENTICATED
   created_at: '2023-02-18 12:00:00'
   username: amandajackson

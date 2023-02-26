@@ -33,12 +33,10 @@ class UserService
     /**
      * @throws \Exception
      */
-    public function update(String $email, UploadedFile $avatar) : void
+    public function update(String $email) : void
     {
-        $avatarPath = $this->fs->upload($avatar, $this->imageDirectory, Constants::IMG_EXTENSIONS);
         $UserObject = $this->userRepository->findOneBy(['email' => $email]);
-        $this->deleteAvatarFile($UserObject);
-        $UserObject->setAvatar($avatarPath);
+
         $this->userRepository->save($UserObject,true);
     }
 

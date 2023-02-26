@@ -18,9 +18,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/user',name: 'user_')]
 class UserController extends AbstractController
 {
-
-
-
     #[Route('/profile', name: 'profile_private', methods: ['GET'])]
     public function show(Security $security): Response
     {
@@ -71,8 +68,8 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $avatar = $form->get('avatar')->getData();
-            $userService->update($user, $avatar);
+
+            $userService->update($user);
 
             return $this->redirectToRoute('user_profile_private', [
                 'id' => $user->getId()

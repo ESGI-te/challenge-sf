@@ -66,13 +66,4 @@ class IngredientTypeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_ingredient_type_delete', methods: ['POST'])]
-    public function delete(Request $request, IngredientType $ingredientType, IngredientTypeRepository $ingredientTypeRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$ingredientType->getId(), $request->request->get('_token'))) {
-            $ingredientTypeRepository->remove($ingredientType, true);
-        }
-
-        return $this->redirectToRoute('app_ingredient_type_index', [], Response::HTTP_SEE_OTHER);
-    }
 }

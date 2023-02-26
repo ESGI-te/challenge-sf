@@ -66,13 +66,4 @@ class RecipeDurationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_recipe_duration_delete', methods: ['POST'])]
-    public function delete(Request $request, RecipeDuration $recipeDuration, RecipeDurationRepository $recipeDurationRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$recipeDuration->getId(), $request->request->get('_token'))) {
-            $recipeDurationRepository->remove($recipeDuration, true);
-        }
-
-        return $this->redirectToRoute('app_recipe_duration_index', [], Response::HTTP_SEE_OTHER);
-    }
 }

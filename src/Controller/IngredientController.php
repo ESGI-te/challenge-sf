@@ -19,7 +19,7 @@ class IngredientController extends AbstractController
     {
         return $this->render('ingredient/index.html.twig', [
 
-            'ingredients' => $ingredientService->getIngredientsWithTypeName(),
+            'ingredients' => $ingredientService->getIngredientsWithDetails(),
         ]);
     }
 

@@ -66,13 +66,5 @@ class RecipeDifficultyController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_recipe_difficulty_delete', methods: ['POST'])]
-    public function delete(Request $request, RecipeDifficulty $recipeDifficulty, RecipeDifficultyRepository $recipeDifficultyRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$recipeDifficulty->getId(), $request->request->get('_token'))) {
-            $recipeDifficultyRepository->remove($recipeDifficulty, true);
-        }
 
-        return $this->redirectToRoute('app_recipe_difficulty_index', [], Response::HTTP_SEE_OTHER);
-    }
 }

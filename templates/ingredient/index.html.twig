@@ -12,8 +12,10 @@
         {{ include('partials/_adminnav.html.twig') }}
         <main class="col-9 border border-light bg-white p-2">
             <h1>Ingrédients</h1>
-            <a class="btn btn-primary m-4" href="{{ path('app_ingredient_new') }}">Create new</a>
-            <table class="table table-striped">
+            <label for="searchInput">Recherche:</label>
+            <input id="searchInput" type="text" class="form-control mb-3" placeholder="Tapez pour rechercher...">
+            <a class="btn btn-primary m-4" href="{{ path('app_ingredient_new') }}">Crée</a>
+            <table id="myTable" class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">Id</th>
@@ -44,6 +46,19 @@
         </main>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').keyup(function() {
+                var searchText = $(this).val().toLowerCase();
+                $('#myTable tbody tr').filter(function() {
+                    return $(this).text().toLowerCase().indexOf(searchText) === -1;
+                }).hide();
+                $('#myTable tbody tr').filter(function() {
+                    return $(this).text().toLowerCase().indexOf(searchText) !== -1;
+                }).show();
+            });
+        });
+    </script>
 
 
 {% endblock %}

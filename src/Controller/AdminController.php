@@ -54,7 +54,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/users/{id}', name: 'users_delete', methods: ['POST'])]
+    #[Route('/users/delete/{id}', name: 'users_delete', methods: ['POST'])]
     public function deleteUser(Request $request, User $user, UserRepository $userRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
@@ -78,7 +78,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/recipes/{id}', name: 'recipes_delete', methods: ['POST'])]
+    #[Route('/recipes/delete/{id}', name: 'recipes_delete', methods: ['POST'])]
     public function deleteRecipe(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$recipe->getId(), $request->request->get('_token'))) {

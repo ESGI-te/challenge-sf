@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Exception\LockedException;
+use Symfony\Component\Security\Core\Exception\DisabledException;
+
+
 
 class SecurityController extends AbstractController
 {
@@ -26,7 +30,18 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        $errorMessage = null;
+        if ($error) {
+            if ($error instanceof LockedException) {
+                $errorMessage = 'Your account has been locked. Please contact support.';
+            } elseif ($error instanceof DisabledException) {
+                $errorMessage = 'Your account has been disabled. Please contact support.';
+            } else {
+                $errorMessage = 'Invalid email or password.';
+            }
+        }
+
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $errorMessage]);
     }
 
     #[Route(path: '/register', name: 'app_register')]
@@ -67,5 +82,6 @@ class SecurityController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('app_login');
     }
+
 
 }

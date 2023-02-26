@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\BO;
 
 use App\Entity\RecipeDifficulty;
 use App\Form\RecipeDifficultyType;

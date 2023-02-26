@@ -34,28 +34,6 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/editAdmin/{id}', name: 'profile_edit_admin', methods: ['GET', 'POST']), IsGranted("ROLE_ADMIN")]
-    public function editAdmin(Request $request, User $user, UserRepository $userRepository): Response
-    {
-
-        $form = $this->createForm(UserEditType::class, $user, [
-            'admin_roles' => $user->getRoles(),
-            'user_plan' => $user->getPlan(),
-        ]);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $userRepository->save($user, true);
-
-            return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('user/editAdmin.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
-    }
-
     /**
      * @throws \Exception
      */

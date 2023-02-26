@@ -9,7 +9,9 @@
         {{ include('partials/_adminnav.html.twig') }}
         <main class="col-9 border border-light bg-white p-2">
             <h1>Liste Recettes</h1>
-            <table class="table table-striped">
+            <label for="searchInput">Recherche:</label>
+            <input id="searchInput" type="text" class="form-control mb-3" placeholder="Tapez pour rechercher...">
+            <table id="myTable" class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">La durée</th>
@@ -49,7 +51,20 @@
     </div>
 
 
-
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').keyup(function() {
+                var searchText = $(this).val().toLowerCase();
+                $('#myTable tbody tr').filter(function() {
+                    return $(this).text().toLowerCase().indexOf(searchText) === -1;
+                }).hide();
+                $('#myTable tbody tr').filter(function() {
+                    return $(this).text().toLowerCase().indexOf(searchText) !== -1;
+                }).show();
+            });
+        });
+    </script>
 
 
 {% endblock %}
+

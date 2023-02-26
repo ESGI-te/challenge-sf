@@ -23,7 +23,7 @@ class IngredientService
         $this->security = $security;
     }
 
-    public function getIngredientsWithTypeName(): array
+    public function getIngredientsWithDetails(): array
     {
         $query = $this->em->createQuery('
             SELECT i.id, i.name, ti.name AS type_name

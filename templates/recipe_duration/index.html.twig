@@ -7,8 +7,10 @@
         {{ include('partials/_adminnav.html.twig') }}
         <main class="col-9 border border-light bg-white p-2">
             <h1>Durée de la recette </h1>
-            <a class="btn btn-primary m-4" href="{{ path('app_recipe_duration_new') }}">Create new</a>
-            <table class="table table-striped">
+            <label for="searchInput">Recherche:</label>
+            <input id="searchInput" type="text" class="form-control mb-3" placeholder="Tapez pour rechercher...">
+            <a class="btn btn-primary m-4" href="{{ path('app_recipe_duration_new') }}">Crée</a>
+            <table id="myTable" class="table table-striped">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -24,7 +26,7 @@
                         <td>
                             <a class="btn btn-secondary" href="{{ path('app_recipe_duration_show', {'id': recipe_duration.id}) }}">Afficher</a>
                             <a class="btn btn-success" href="{{ path('app_recipe_duration_edit', {'id': recipe_duration.id}) }}">Modifier</a>
-                            {{ include('recipe_duration/_delete_form.html.twig') }}
+
                         </td>
                     </tr>
                 {% else %}
@@ -37,5 +39,18 @@
         </main>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').keyup(function() {
+                var searchText = $(this).val().toLowerCase();
+                $('#myTable tbody tr').filter(function() {
+                    return $(this).text().toLowerCase().indexOf(searchText) === -1;
+                }).hide();
+                $('#myTable tbody tr').filter(function() {
+                    return $(this).text().toLowerCase().indexOf(searchText) !== -1;
+                }).show();
+            });
+        });
+    </script>
 
 {% endblock %}

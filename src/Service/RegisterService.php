@@ -35,14 +35,12 @@ class RegisterService
         $this->imageDirectory = $imageDirectory;
         $this->planRepository = $planRepository;
     }
-    public function register(User $user, UploadedFile $avatar): void {
+    public function register(User $user): void {
 
         $default_plan = $this->planRepository->findOneBy(['name'=>'Basic']);
         $token = Uuid::uuid4();
         $date = new DateTimeImmutable('now');
         $hash = $this->passwordHasher->hashPassword($user, $user->getPassword());
-        $avatarPath = $this->fs->upload($avatar, $this->imageDirectory, Constants::IMG_EXTENSIONS);
-        $user->setAvatar($avatarPath);
         $user->setPassword($hash);
         $user->setCreatedAt($date);
         $user->setToken($token);

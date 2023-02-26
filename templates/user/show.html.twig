@@ -1,36 +1,61 @@
 {% extends 'base.html.twig' %}
 
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('style/profile.css') }}" />
+{% endblock %}
+
+{% block header %}
+    {{ include('partials/_header.html.twig') }}
+{% endblock %}
+
+{% block menu %}
+    {{ include('partials/_menu.html.twig') }}
+{% endblock %}
+
+
 {% block title %}User{% endblock %}
 
 {% block main %}
-    <h1>User</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Avatar</th>
-                <td>{{ user.avatar }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="content body">
+        <div class="grid">
+            <div class="header-grid">
+                <img src='https://api.dicebear.com/5.x/thumbs/svg?radius=50&seed={{ user.username }}' class="avatar avatar_display">
+                <div class="item-header">
+                    <h1 class="title">Profile</h1>
+                    <p class="text">Retrouvez toutes les informations vous concernant et les paramètres de votre compte !</p>
+                </div>
+            </div>
+            <div class="inputWrapper">
+                <label for="email"> Email </label>
+                <input type="text" placeholder="{{ user.email }}" disabled>
+            </div>
+            <div class="inputWrapper">
+                <label for="email"> Firstname </label>
+                <input type="text" placeholder="{{ user.firstname }}" disabled>
+            </div>
+            <div class="inputWrapper">
+                <label for="email"> LastName </label>
+                <input type="text" placeholder="{{ user.lastname }}" disabled>
+            </div>
+            <div class="inputWrapper">
+                <label for="email"> UserName </label>
+                <input type="text" placeholder="{{ user.username }}" disabled>
+            </div>
 
-    <a href="{{ path('user_edit') }}">edit</a>
-    <a href="{{ path('user_recipes') }}">recipes</a>
+            <div class="footer-grid">
+                <a href="{{ path('user_edit') }}" > <button class="link button-primary"> Modifier </button></a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
 
 {% endblock %}

@@ -17,20 +17,27 @@ class UserType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'disabled' => true,
+                'row_attr' => [
+                    'class' => 'inputWrapper'
+                ]
             ])
             ->add('firstname', TextType::class, [
                 'required' => false,
+                'row_attr' => [
+                    'class' => 'inputWrapper'
+                ]
             ])
             ->add('lastname', TextType::class, [
                 'required' => false,
-            ])
-            ->add('avatar', FileType::class, [
-                'label' => 'Photo de profil',
-                'mapped' => false,
-                'required' => false,
+                'row_attr' => [
+                    'class' => 'inputWrapper'
+                ]
             ])
             ->add('username', TextType::class, [
                 'required' => false,
+                'row_attr' => [
+                    'class' => 'inputWrapper'
+                ]
             ])
         ;
     }

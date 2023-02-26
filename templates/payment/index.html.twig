@@ -2,16 +2,39 @@
 
 {% block title %}Payment{% endblock %}
 
-{% block body %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('style/payment.css') }}">
+{% endblock %}
 
 
-     {% block main %}
-         {{ parent() }}
-        <div class="content">
+{% block header %}
+    {{ include('partials/_header.html.twig') }}
+{% endblock %}
+
+{% block menu %}
+    {{ include('partials/_menu.html.twig') }}
+{% endblock %}
+
+
+ {% block main %}
+    <div class="container">
+        <img src="{{ asset('image/Paymentcheckout.png') }}">
+        <div class="card body shadow">
+
+            <h1 class="title heading">Premium plan</h1>
+            <p>Votre plan Basic vous permet de générer deux recettes par jour,
+                tandis que notre plan Premium vous permet de générer beaucoup plus
+                de recettes, ainsi que de bénéficier de fonctionnalités exclusives
+                telles que des recettes personnalisées en
+                fonction de vos goûts et de vos préférences culinaires.
+                Rejoignez notre communauté de passionnés de cuisine et découvrez de nouvelles saveurs avec Toke !</p>
             <form action="/payment/checkout" method="POST">
-                <button type="submit">Checkout</button>
+                <button class="button-primary" type="submit">Checkout</button>
             </form>
         </div>
-     {% endblock %}
 
-{% endblock %}
+
+    </div>
+ {% endblock %}
+

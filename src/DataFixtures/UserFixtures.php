@@ -24,6 +24,7 @@ class UserFixtures extends Fixture
         $users = Yaml::parseFile(__DIR__ . '/users.yaml');
         foreach ($users as $userData) {
             $user = new User();
+            $roles = [...$user->getRoles(),...$userData["roles"]];
             $createdAt = new \DateTimeImmutable($userData['created_at']);
             $hashedPassword = $this->passwordHasher->hashPassword($user, $userData['password']);
             $user->setUsername($userData['username']);
@@ -32,7 +33,7 @@ class UserFixtures extends Fixture
             $user->setEmail($userData['email']);
             $user->setPassword($hashedPassword);
             $user->setToken(Uuid::uuid4());
-            $user->setRoles([...$user->getRoles(), 'IS_FULLY_AUTHENTICATED']);
+            $user->setRoles($roles);
             $user->setCreatedAt($createdAt);
             $user->setPlan($default_plan);
             $manager->persist($user);

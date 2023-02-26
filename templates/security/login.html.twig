@@ -12,7 +12,7 @@
             <h1 class="heading">Connexion</h1>
             <form class="loginForm" method="post">
                 {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    <div class="alert alert-danger">{{ error }}</div>
                 {% endif %}
                 <div class="inputWrapper">
                     <label for="inputEmail">Email</label>

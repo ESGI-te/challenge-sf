@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
@@ -33,6 +34,9 @@ class Authenticator extends AbstractLoginFormAuthenticator
         $password = $request->request->get('password', '');
         $request->getSession()->set(Security::LAST_USERNAME, $email);
         $user = $this->userRepository->findOneBy(['email' => $email]);
+        if (!$user) {
+            throw new AuthenticationException('Invalid email or password.');
+        }
         if(!in_array('IS_FULLY_AUTHENTICATED', $user->getRoles())) {
             throw new \Exception('Account not verified');
         }

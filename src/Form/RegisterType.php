@@ -16,10 +16,6 @@ class RegisterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('avatar', FileType::class, [
-                'label' => 'Photo de profil',
-                'mapped' => false,
-            ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'row_attr' => [

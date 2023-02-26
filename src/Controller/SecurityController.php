@@ -37,8 +37,8 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $avatar = $form->get('avatar')->getData();
-            $registerService->register($user, $avatar);
+
+            $registerService->register($user);
 //            return $this->render('security/register.html.twig', [
 //                'isEmailConfirmationPending' => true
 //            ]);

@@ -1,2 +1,33 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('style/recipe-list.css') }}">
+{% endblock %}
+{% block header %}
+    {{ include('partials/_header.html.twig') }}
+{% endblock %}
+{% block menu %}
+    {{ include('partials/_menu.html.twig') }}
+{% endblock %}
+{% block main %}
+    <div class="container">
+        {{ include("partials/_searchbar.html.twig") }}
+        {%if recipes is empty %}
+            <div>
+                <img src="{{ asset('image/Woman.png') }}" alt="Your Image">
+                <p>Aucune recette n'a été trouvée</p>
+            </div>
 
+        {% else %}
+        <div class="list")>
+            {% for recipe in recipes %}
+                <a class="card" href="{{ path('recipe_show', { 'id': recipe.id }) }}">
+                    <img src="{{ asset( recipe.image) }}">
+                    <p class="body">{{ recipe.title }}</p>
+                </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

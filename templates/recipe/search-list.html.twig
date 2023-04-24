@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('style/user-recipe-list.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/search-list.css') }}">
 {% endblock %}
 {% block header %}
     {{ include('partials/_header.html.twig') }}
@@ -9,7 +9,6 @@
 {% block menu %}
     {{ include('partials/_menu.html.twig') }}
 {% endblock %}
-
 {% block main %}
     <div class="container">
         {{ include("partials/_searchbar.html.twig") }}
@@ -19,12 +18,10 @@
             {% else %}
                 <div>
                     <img src="{{ asset('image/Woman.png') }}" alt="Your Image">
-                    <p>Vous n'avez aucune créé aucune recette pour le moment</p>
-                    <a href="{{ path('recipe_generate') }}">
-                        <button class="button button--primary">Générer une recette</button>
-                    </a>
+                    <p>Aucune recette n'a été trouvée</p>
                 </div>
             {% endif %}
         </div>
     </div>
+
 {% endblock %}

@@ -12,6 +12,9 @@
     background-color: var(--green);
     color: #FFFFFF;
 }
+.button--primary:hover {
+    background-color: #62675E;
+}
 
 .button--secondary {
     background-color: #FFFFFF;
@@ -60,4 +63,28 @@ input[type="text"], input[type="password"], input[type="email"] {
     top: 50%;
     transform: translateY(-50%);
     left: 1.5rem;
+}
+.recipe-list {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    flex: 1;
+}
+.recipe-card {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    max-width: 255px;
+    background-color: #FFFFFF;
+    border-radius: 0.5rem;
+}
+.recipe-card-title {
+    padding: 0.5rem;
+}
+.recipe-card > img {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    max-height: 180px;
+    object-fit: cover;
+    aspect-ratio: 2/2;
 }

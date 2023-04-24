@@ -32,12 +32,12 @@
             <p class="text-recipe body" >{{recipe.content|raw}}</p>
         </div>
         <div>
-            <h2 class="body">Commentaires</h2>
+            <h2 class="fw-body">Commentaires</h2>
             {% for comment in recipe.comments %}
                 <div class="comment" src="{{ asset('image/comment.svg') }}">
                     <div class="comment-content">
                         <div class="comment-head">
-                            <p class="body">De {{ comment.userId.username }}</p>
+                            <p class="fw-body">De {{ comment.userId.username }}</p>
                             {% if app.user is same as(comment.userId)  %}
                                 <form action="{{ path('comment_delete', {'id': recipe.id, 'commentId': comment.id}) }}" method="post">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}" />
@@ -45,7 +45,7 @@
                                 </form>
                             {% endif %}
                         </div>
-                        <p class="body">{{ comment.content }}</p>
+                        <p class="fw-body">{{ comment.content }}</p>
                     </div>
                 </div>
             {% endfor %}

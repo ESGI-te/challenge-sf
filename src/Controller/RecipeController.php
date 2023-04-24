@@ -122,7 +122,7 @@ class RecipeController extends AbstractController
         $query = $request->get('query');
         $recipes = $this->recipeService->searchByTitle($query);
 
-        return $this->render('recipe/list.html.twig', [
+        return $this->render('search-list.html.twig', [
             'recipes' => $recipes,
             'sort' => $request->query->get('sort', 'created_at')
         ]);

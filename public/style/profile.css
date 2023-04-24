@@ -63,6 +63,7 @@ input[type="text"],[type="email"]{
     flex-direction: row;
     gap: 10px;
     background-color: #FFFFFF;
+    border-radius: 0.5rem;
 }
 
 .footer-grid {

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('style/recipe-list.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/payment-cancel.css') }}">
 {% endblock %}
 {% block header %}
     {{ include('partials/_header.html.twig') }}
@@ -11,12 +11,14 @@
 {% endblock %}
 
 {% block main %}
-    <div class="content">
-        <h1>Thanks for your attempted order!</h1>
-        <p>
-            We would appreciate your business!
-            But the payment failed :(
-        </p>
+    <div class="container">
+        <h1 class="fw-body">
+            Oups, une erreur s'est produite et le paiement a échoué !
+        </h1>
+        <img src="{{ asset('image/error.svg') }}">
+        <form class="checkout" action="/payment/checkout" method="POST">
+            <button class="button button--primary" type="submit">Rééssayer</button>
+        </form>
     </div>
 {% endblock %}
 

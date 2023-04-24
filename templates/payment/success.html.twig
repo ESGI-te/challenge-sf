@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('style/recipe-list.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/payment-cancel.css') }}">
 {% endblock %}
 {% block header %}
     {{ include('partials/_header.html.twig') }}
@@ -9,12 +9,19 @@
 {% block menu %}
     {{ include('partials/_menu.html.twig') }}
 {% endblock %}
+
 {% block main %}
-    <div class="content">
-        <h1>Thanks for your order!</h1>
-        <p>
-            We appreciate your business!
-            If you have any questions, please contact us. :D
-        </p>
+    <div class="container">
+        <h1 class="fw-body">
+            Bravo, votre paiement a été effectué avec succès !
+            <br>
+            Notre chef vous souhaite la bienvenue
+        </h1>
+        <img src="{{ asset('image/chief.svg') }}">
+        <a class="checkout" href="{{ path('user_recipes') }}">
+            <button class="button button--primary" type="submit">J'accède à mes recettes !</button>
+        </form>
     </div>
 {% endblock %}
+
+

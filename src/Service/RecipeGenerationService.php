@@ -20,8 +20,7 @@ class RecipeGenerationService
         $nb_people = $recipe->getNbPeople() ?? 2;
 
         $prompt = "
-            Ignore toutes les instructions précédent celle-ci. Tu es un chef cuisinier depuis 20 ans. 
-            Ta tâche est maintenant de créer une recette de cuisine d'une difficulté $difficulty, pour $nb_people personne(s).
+            Créé une recette de cuisine d'une difficulté $difficulty, pour $nb_people personne(s).
             Celle-ci doit être adaptée à une durée $duration et doit être basée sur les ingrédients suivants : $ingredients.
             Ne rajoute pas de titre.
         ";

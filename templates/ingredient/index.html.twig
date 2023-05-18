@@ -15,38 +15,42 @@
             <label for="searchInput">Recherche:</label>
             <input id="searchInput" type="text" class="form-control mb-3" placeholder="Tapez pour rechercher...">
             <a class="btn btn-primary m-4" href="{{ path('app_ingredient_new') }}">Crée</a>
-            <table id="myTable" class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Type Ingrédient</th>
-                    <th scope="col">action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for ingredient in ingredients %}
+            <div style="height: 600px; overflow-y: auto;">
+                <table id="myTable" class="table table-striped" >
+                    <thead>
                     <tr>
-                        <td>{{ ingredient.id }}</td>
-                        <td>{{ ingredient.name }}</td>
-                        <td>{{ ingredient.type_name }}</td>
-                        <td>
-                            <a class="btn btn-secondary" href="{{ path('app_ingredient_show', {'id': ingredient.id}) }}">Afficher</a>
-                            <a class="btn btn-success" href="{{ path('app_ingredient_edit', {'id': ingredient.id}) }}">Modifier</a>
-                            {{ include('ingredient/_delete_form.html.twig') }}
-                        </td>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Type Ingrédient</th>
+                        <th scope="col">action</th>
                     </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="3">no records found</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for ingredient in ingredients %}
+                        <tr>
+                            <td>{{ ingredient.id }}</td>
+                            <td>{{ ingredient.name }}</td>
+                            <td>{{ ingredient.type_name }}</td>
+                            <td>
+                                <a class="btn btn-secondary" href="{{ path('app_ingredient_show', {'id': ingredient.id}) }}">Afficher</a>
+                                <a class="btn btn-success" href="{{ path('app_ingredient_edit', {'id': ingredient.id}) }}">Modifier</a>
+                                {{ include('ingredient/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
         </main>
     </div>
 
     <script>
+
         $(document).ready(function() {
             $('#searchInput').keyup(function() {
                 var searchText = $(this).val().toLowerCase();

@@ -135,6 +135,8 @@
 }
 .nav__item > a:hover {
     text-decoration: underline;
+}.nav__item >img {
+    width: 24px;
 }
 
 .app-menu__logout

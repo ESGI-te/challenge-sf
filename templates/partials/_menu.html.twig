@@ -9,6 +9,7 @@ Mes toques :        {{ app.session.get('nb_toke') }}
     <nav class="nav">
         <ul class="nav__list">
             <li class="nav__item"><img alt="House" src="{{ asset('icons/Home.svg') }}"><a class="footnote bold" href="{{ path('home') }}">Accueil</a></li>
+            <li class="nav__item"><img alt="House" src="{{ asset('icons/plan1.svg') }}"><a class="footnote bold" href="{{ path('recipe_generate') }}">Générer une recette</a></li>
             <li class="nav__item"><img alt="Book" src="{{ asset('icons/Book.svg') }}"><a class="footnote bold" href="{{ path('user_recipes') }}">Mes recettes</a></li>
             <li class="nav__item"><img alt="Avatar" src="{{ asset('icons/User.svg') }}"><a class="footnote bold" href="{{ path('user_profile_private') }}">Profil</a></li>
             <li class="nav__item"><img alt="Payment" src="{{ asset('icons/coins.svg') }}"><a class="footnote bold" href="{{ path('stripe_payment') }}">Obtenir des toques</a></li>

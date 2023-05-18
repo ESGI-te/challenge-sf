@@ -10,8 +10,11 @@
     {{ include('partials/_menu.html.twig') }}
 {% endblock %}
 {% block main %}
-    <div class="container" style="background-image: url('{{ recipe.image }}');"></div>
-    <div>
+    <div class="container">
+
+    <h1 class="heading">{{ recipe.title }}</h1>
+
+    <div class="illustration" style="background-image: url('{{ recipe.image }}');"></div>
         <ul class= ul-container>
             <li class="li-container">
                 <img class="imgContainer" src="{{ asset('image/User.svg') }}" alt="Your Image">
@@ -27,10 +30,8 @@
                 <p class="ul-text">{{ recipe.duration.name }}</p>
             </li>
         </ul>
-    </div>
-        <div>
-            <p class="text-recipe body" >{{recipe.content|raw}}</p>
-        </div>
+        <div class="fw-body">
+            {{ recipe.content|raw }}      </div>
         <div>
             <h2 class="fw-body">Commentaires</h2>
             {% for comment in recipe.comments %}
@@ -57,5 +58,5 @@
                 {{ form_end(comment_form) }}
             </div>
     </div>
-
+    </div>
 {% endblock %}

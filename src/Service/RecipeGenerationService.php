@@ -22,7 +22,7 @@ class RecipeGenerationService
         $prompt = "
             Créé une recette de cuisine d'une difficulté $difficulty, pour $nb_people personne(s).
             Celle-ci doit être adaptée à une durée $duration et doit être basée sur les ingrédients suivants : $ingredients.
-            Ne rajoute pas de titre.
+            Ne rajoute pas de titre. J'aimerais que tu ne me renvoie que la recette et pas d'autre texte et que ton retour soit en format html et insère 2 balises <br> entre les différentes étapes.
         ";
 
         return $this->openAiService->generateText($prompt);
@@ -44,7 +44,7 @@ class RecipeGenerationService
 
         $recipeIngredients = $this->getIngredientNamesFormated($ingredients);
 
-        $prompt = "Crée un titre élaboré pour une recette de cuisine composée des ingrédients suivants : $recipeIngredients.";
+        $prompt = "Crée un titre élaboré mais court pour une recette de cuisine composée des ingrédients suivants : $recipeIngredients. Celui-ci ne doit pas excéder 80 caractères";
 
         return $this->openAiService->generateText($prompt);
     }

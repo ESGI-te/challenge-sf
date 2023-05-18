@@ -28,10 +28,11 @@ class PaymentController extends AbstractController
     }
 
     #[Route('/', name: 'payment')]
-    public function index( ): Response
+    public function index(): Response
     {
+        $plans = $this->planRepository->findAll();
         return $this->render('payment/index.html.twig', [
-            'controller_name' => 'PaymentController',
+            'plans' => $plans,
         ]);
     }
 
@@ -41,7 +42,6 @@ class PaymentController extends AbstractController
     #[Route('/checkout/', name: 'checkout')]
     public function checkout($stripeSK,SessionInterface $session,PlanRepository $planRepository,Request $request): Response
     {
-
         $plan_id = $request->query->get("plan_id");
         $plan = $planRepository->findOneBy(["id"=>$plan_id]);
         $slug = $this->paymentService->getInstance()->getToken();

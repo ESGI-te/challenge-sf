@@ -10,7 +10,8 @@
             <h1>Types d'ingrédients </h1>
             <label for="searchInput">Recherche:</label>
             <input id="searchInput" type="text" class="form-control mb-3" placeholder="Tapez pour rechercher...">
-            <table id="myTable" class="table table-striped">
+            <div style="height: 600px; overflow-y: auto;">
+                <table id="myTable" class="table table-striped">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -35,6 +36,7 @@
                 {% endfor %}
                 </tbody>
             </table>
+            </div>
         </main>
     </div>
 

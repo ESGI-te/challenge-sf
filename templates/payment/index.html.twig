@@ -25,7 +25,7 @@
              <div class="plan-card">
                  <h2>{{ plan.name }}</h2>
                  <span>{{ plan.nbRecipe }}</span>
-                 <span>{{ plan.price() }}</span>
+                 <span>{{ plan.price() | centimes_to_euros }}</span>
                  <form action="/payment/checkout/?plan_id={{ plan.id }}" method="POST">
                      <button class="button button--primary" type="submit">Obtenir</button>
                  </form>

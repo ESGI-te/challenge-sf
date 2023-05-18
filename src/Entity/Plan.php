@@ -21,14 +21,14 @@ class Plan
     #[ORM\Column]
     private ?int $nb_recipe = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 100)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 1000)]
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $nb_ingredient = null;
+    private ?int $price = null;
 
     #[ORM\OneToMany(mappedBy: 'Plan', targetEntity: User::class)]
     private Collection $users;
@@ -84,14 +84,14 @@ class Plan
         return $this;
     }
 
-    public function getNbIngredient(): ?int
+    public function getPrice(): ?int
     {
-        return $this->nb_ingredient;
+        return $this->price;
     }
 
-    public function setNbIngredient(int $nb_ingredient): self
+    public function setPrice(int $price): self
     {
-        $this->nb_ingredient = $nb_ingredient;
+        $this->price = $price;
 
         return $this;
     }

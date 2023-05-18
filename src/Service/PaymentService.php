@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Plan;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Stripe\Exception\ApiErrorException;
@@ -23,16 +24,17 @@ class PaymentService
     /**
      * @throws ApiErrorException
      */
-    public function paymentCheckout(StripeClient $stripeClient, $successURL, $cancelURL): \Stripe\Checkout\Session
+    public function paymentCheckout(StripeClient $stripeClient, $successURL, $cancelURL,Plan $plan): \Stripe\Checkout\Session
     {
         return $stripeClient->checkout->sessions->create([
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'eur',
                     'product_data' => [
-                        'name' => 'Toke premium',
+                        'name' => $plan->getName(),
+                        'description' => $plan->getDescription(),
                     ],
-                    'unit_amount' => 1000,
+                    'unit_amount' => $plan->getPrice(),
                 ],
                 'quantity' => 1,
             ]],
@@ -60,9 +62,9 @@ class PaymentService
         $this->user->setRoles($roles);
     }
 
-    public function updatePlan($plan): void
+    public function addTokes($nb_toke): void
     {
-        $this->user->setPlan($plan);
+        $this->user->setNbToke($nb_toke);
     }
 
 }

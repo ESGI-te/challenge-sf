@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\PlanRepository;
 use App\Repository\UserRepository;
 use App\Service\PaymentService;
+use Symfony\Component\HttpFoundation\Request;
 use Stripe\Exception\ApiErrorException;
 use Stripe\StripeClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,23 +38,29 @@ class PaymentController extends AbstractController
     /**
      * @throws ApiErrorException
      */
-    #[Route('/checkout', name: 'checkout')]
-    public function checkout($stripeSK,SessionInterface $session,Security $security,UserRepository $userRepository): Response
+    #[Route('/checkout/', name: 'checkout')]
+    public function checkout($stripeSK,SessionInterface $session,PlanRepository $planRepository,Request $request): Response
     {
 
+        $plan_id = $request->query->get("plan_id");
+        $plan = $planRepository->findOneBy(["id"=>$plan_id]);
         $slug = $this->paymentService->getInstance()->getToken();
         $session->set('payment_slug', $this->paymentService->encryptToken($slug));
+        $session->set('plan_id',$plan_id);
         $stripe = new StripeClient($stripeSK);
         $sucessURL = $this->generateUrl('stripe_success',['slug' => $this->paymentService->encryptToken($slug)],UrlGeneratorInterface::ABSOLUTE_URL);
         $cancelURL = $this->generateUrl('stripe_cancel',[],UrlGeneratorInterface::ABSOLUTE_URL);
 
-        return $this->redirect($this->paymentService->paymentCheckout($stripe,$sucessURL,$cancelURL)->url,303);
+        return $this->redirect($this->paymentService->paymentCheckout($stripe,$sucessURL,$cancelURL,$plan)->url,303);
     }
 
     #[Route('/success/{slug}', name: 'success')]
-    public function success(UserRepository $userRepository,SessionInterface $session): Response
+    public function success(UserRepository $userRepository,SessionInterface $session,PlanRepository $planRepository): Response
     {
         $premium_plan = $this->planRepository->findOneBy(['name'=>'Premium']);
+
+        $plan_id = $session->get("plan_id");
+        $plan = $planRepository->findOneBy(["id"=>$plan_id]);
 
         $encryptedSlug = $session->get('payment_slug');
         $slug = $this->paymentService->getInstance()->getToken();
@@ -63,7 +70,7 @@ class PaymentController extends AbstractController
         if (!$validSlug){
             return $this->render('payment/cancel.html.twig', []);
         }
-        $this->paymentService->updatePlan($premium_plan);
+        $this->paymentService->addTokes($plan->getNbRecipe());
         $userRepository->save($this->paymentService->getInstance(),true);
         return $this->render('payment/success.html.twig', []);
     }

@@ -21,7 +21,7 @@ class PlanFixtures extends Fixture
             $plan->setName($planData['name']);
             $plan->setDescription($planData['description']);
             $plan->setNbRecipe($planData['nb_recipe']);
-            $plan->setNbIngredient($planData['nb_ingredient']);
+            $plan->setPrice($planData['price']);
             $manager->persist($plan);
         }
 

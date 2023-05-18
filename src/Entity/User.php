@@ -66,6 +66,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Plan $plan = null;
 
+    #[ORM\Column]
+    private ?int $nb_toke = null;
+
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
@@ -316,6 +319,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPlan(?Plan $plan): self
     {
         $this->plan = $plan;
+
+        return $this;
+    }
+
+    public function getNbToke(): ?int
+    {
+        return $this->nb_toke;
+    }
+
+    public function setNbToke(int $nb_toke): self
+    {
+        $this->nb_toke = $nb_toke;
 
         return $this;
     }

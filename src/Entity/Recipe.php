@@ -37,7 +37,7 @@ class Recipe
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?RecipeDifficulty $difficulty = null;
 
-    #[ORM\Column(length: 2000)]
+    #[ORM\Column(length: 3000)]
     private ?string $content = null;
 
     #[ORM\Column(length: 150)]

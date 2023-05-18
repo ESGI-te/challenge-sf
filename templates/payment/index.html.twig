@@ -18,21 +18,21 @@
 
 
  {% block main %}
-    <div class="container">
-        <img src="{{ asset('image/Paymentcheckout.png') }}">
-        <div class="content">
-            <h1 class="title heading">Toke Pro</h1>
-            <p class="fw-body">Votre plan Basic vous permet de générer deux recettes par jour,
-                tandis que notre plan Premium vous permet de générer beaucoup plus
-                de recettes, ainsi que de bénéficier de fonctionnalités exclusives
-                telles que des recettes personnalisées en
-                fonction de vos goûts et de vos préférences culinaires.
-                Rejoignez notre communauté de passionnés de cuisine et découvrez de nouvelles saveurs avec Toke !</p>
+     <div class="container">
+         <h1 class="heading">Obtenir des toques</h1>
+         <div class="plans-grid fw-body">
+             {% for plan in plans %}
+             <div class="plan-card">
+                 <h2>{{ plan.name }}</h2>
+                 <span>{{ plan.nbRecipe }}</span>
+                 <span>{{ plan.price() }}</span>
+                 <form action="/payment/checkout/?plan_id={{ plan.id }}" method="POST">
+                     <button class="button button--primary" type="submit">Obtenir</button>
+                 </form>
+             </div>
+             {% endfor %}
+         </div>
 
-            <form action="/payment/checkout" method="POST">
-                <button class="button button--primary" type="submit">Obtenir</button>
-            </form>
-        </div>
-    </div>
+     </div>
  {% endblock %}
 

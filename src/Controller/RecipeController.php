@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Recipe;
 use App\Entity\RecipeRequest;
+use App\Entity\User;
 use App\Form\RecipeType;
 use App\Service\IngredientService;
 use App\Form\CommentType;
@@ -74,6 +75,10 @@ class RecipeController extends AbstractController
     #[Route('/generate', name: 'generate', priority: 2)]
     public function generate(Request $request): Response
     {
+        $user = $this->entityManager->find(User::class, $this->getUser());
+        if ($user && $user->getNbToke() < 1) {
+            return $this->render('recipe/insuficient-credit.html.twig');
+        }
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);

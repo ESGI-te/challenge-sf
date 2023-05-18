@@ -35,6 +35,7 @@ class UserFixtures extends Fixture
             $user->setRoles([...$user->getRoles(), 'IS_FULLY_AUTHENTICATED']);
             $user->setCreatedAt($createdAt);
             $user->setPlan($default_plan);
+            $user->setNbToke(0);
             $manager->persist($user);
             $userIndex++;
             $this->addReference('user_' . $userIndex, $user);
